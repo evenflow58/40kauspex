@@ -205,8 +205,12 @@ export class PipelineStack extends Stack {
         // S3 sync runs.
         'pnpm test --run',
         'pnpm build',
+        // Snapshot the current production content before overwriting it.
+        // The E2E step's rollback.sh restores from this prefix on failure.
+        'aws s3 sync "s3://$SITE_BUCKET/" "s3://$SITE_BUCKET/_backup/" --delete --exclude "_backup/*"',
         'aws s3 sync apps/mfe-home/dist "s3://$SITE_BUCKET/mfe-home" --delete',
-        'aws s3 sync apps/shell/dist "s3://$SITE_BUCKET" --delete --exclude "mfe-home/*"',
+        // Exclude _backup/ so the rollback snapshot is not wiped by the sync.
+        'aws s3 sync apps/shell/dist "s3://$SITE_BUCKET" --delete --exclude "mfe-home/*" --exclude "_backup/*"',
         // Generate + upload auth-config.json from the deployed auth outputs
         // (no-op until AuthStack is configured).
         ...authConfigCommands,
@@ -243,8 +247,104 @@ export class PipelineStack extends Stack {
       ],
     });
 
+    // ---- E2E smoke-test step -----------------------------------------------
+    // Runs Playwright against the just-deployed production URL. On failure the
+    // rollback.sh script in post_build restores the S3 backup and initiates
+    // CloudFormation rollback-stack for each production stack.
+    // Only wired when auth is configured (needs USER_POOL_CLIENT_ID to
+    // authenticate the test user).
+    const e2eEnvFromOutputs: Record<string, CfnOutput> = {
+      BASE_URL: appStage.siteUrl,
+      SITE_BUCKET: appStage.siteBucketName,
+      DISTRIBUTION_ID: appStage.distributionId,
+    };
+    if (authConfigured && appStage.apiUrl && appStage.userPoolClientId) {
+      e2eEnvFromOutputs.API_URL = appStage.apiUrl;
+      e2eEnvFromOutputs.USER_POOL_CLIENT_ID = appStage.userPoolClientId;
+    }
+
+    const e2eTests = new CodeBuildStep('E2ETests', {
+      input: source,
+      env: {
+        // USER_POOL_ID comes from CDK context (plain string), not a CfnOutput.
+        USER_POOL_ID: userPoolId,
+        CI: 'true',
+      },
+      envFromCfnOutputs: e2eEnvFromOutputs,
+      commands: [
+        'corepack enable',
+        'corepack prepare pnpm@11.2.2 --activate',
+        'pnpm install --frozen-lockfile',
+        // Install the Chromium binary used by Playwright.
+        'pnpm --filter @40kauspex/e2e exec playwright install --with-deps chromium',
+        'pnpm --filter @40kauspex/e2e run e2e',
+      ],
+      // post_build runs regardless of build result — used to trigger rollback.
+      partialBuildSpec: codebuild.BuildSpec.fromObject({
+        version: '0.2',
+        phases: {
+          post_build: {
+            commands: ['bash apps/e2e/scripts/rollback.sh'],
+          },
+        },
+      }),
+      buildEnvironment: {
+        // MEDIUM gives 4 GB RAM — Playwright + Chromium needs more than SMALL.
+        computeType: codebuild.ComputeType.MEDIUM,
+      },
+      rolePolicyStatements: [
+        // Secrets Manager: read test-user credentials.
+        new iam.PolicyStatement({
+          sid: 'ReadE2ETestCredentials',
+          actions: ['secretsmanager:GetSecretValue'],
+          resources: [
+            `arn:aws:secretsmanager:${this.region}:${this.account}:secret:auspex40k/e2e/test-user*`,
+          ],
+        }),
+        // S3: read backup and restore on rollback.
+        new iam.PolicyStatement({
+          sid: 'RestoreS3Backup',
+          actions: [
+            's3:ListBucket',
+            's3:GetObject',
+            's3:PutObject',
+            's3:DeleteObject',
+          ],
+          resources: [
+            'arn:aws:s3:::auspex40kdeploymentstack-*',
+            'arn:aws:s3:::auspex40kdeploymentstack-*/*',
+          ],
+        }),
+        // CloudFront: invalidate cache after restore.
+        new iam.PolicyStatement({
+          sid: 'InvalidateOnRollback',
+          actions: [
+            'cloudfront:CreateInvalidation',
+            'cloudfront:GetInvalidation',
+          ],
+          resources: [`arn:aws:cloudfront::${this.account}:distribution/*`],
+        }),
+        // CloudFormation: roll back the three production stacks.
+        new iam.PolicyStatement({
+          sid: 'RollbackProductionStacks',
+          actions: [
+            'cloudformation:RollbackStack',
+            'cloudformation:DescribeStacks',
+          ],
+          resources: [
+            `arn:aws:cloudformation:${this.region}:${this.account}:stack/Auspex40kDeploymentStack/*`,
+            `arn:aws:cloudformation:${this.region}:${this.account}:stack/Prod-Auspex40kAuthStack/*`,
+            `arn:aws:cloudformation:${this.region}:${this.account}:stack/Prod-Auspex40kApiStack/*`,
+          ],
+        }),
+      ],
+    });
+
+    // E2E tests must run after the site is fully deployed and live.
+    e2eTests.addStepDependency(buildAndDeploy);
+
     pipeline.addStage(appStage, {
-      post: [buildAndDeploy],
+      post: [buildAndDeploy, e2eTests],
     });
   }
 }

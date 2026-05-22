@@ -63,6 +63,12 @@ export class Auth extends Construct {
       userPool,
       // Public SPA client: no secret, PKCE-only authorization code flow.
       generateSecret: false,
+      // USER_PASSWORD_AUTH is enabled exclusively for the E2E test user.
+      // It does not weaken the Google OAuth flow (which goes through the
+      // Hosted UI, not through these API auth flows).
+      authFlows: {
+        userPassword: true,
+      },
       oAuth: {
         flows: {
           authorizationCodeGrant: true,
