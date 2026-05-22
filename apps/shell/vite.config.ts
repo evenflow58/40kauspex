@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import federation from '@originjs/vite-plugin-federation'
 
 // vite build always sets NODE_ENV=production; vite dev/preview sets development.
@@ -11,6 +12,7 @@ const mfeHomeUrl =
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     federation({
       name: 'shell',
       remotes: {
