@@ -148,7 +148,7 @@ export class PipelineStack extends Stack {
       ],
       // The site bucket name and distribution id are CDK-generated and not
       // known until the HostingStack deploys, so these statements cannot be
-      // pinned to exact ARNs. They are scoped to the `Auspex40kHostingStack`
+      // pinned to exact ARNs. They are scoped to the `Auspex40kDeploymentStack`
       // bucket-name prefix (CloudFormation derives bucket names from the
       // stack name) and to distributions in this account. The granted
       // actions only ever write build artifacts / trigger invalidations.
