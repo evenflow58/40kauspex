@@ -21,10 +21,18 @@ export class HostingStack extends Stack {
   public readonly siteBucket: s3.IBucket;
   /** Distribution whose cache is invalidated after a deploy. */
   public readonly distribution: cloudfront.IDistribution;
+  /**
+   * CloudFront distribution domain name (no scheme), e.g.
+   * `d32ma5g6gjg1fb.cloudfront.net`. Exposed as a plain string so `AuthStack`
+   * can build the per-environment OAuth callback/logout URLs at synth time.
+   */
+  public readonly distributionDomainName: string;
   /** Output carrying the generated bucket name (consumed by the pipeline). */
   public readonly siteBucketNameOutput: CfnOutput;
   /** Output carrying the distribution id (consumed by the pipeline). */
   public readonly distributionIdOutput: CfnOutput;
+  /** Output carrying the public site URL (consumed by the pipeline). */
+  public readonly siteUrlOutput: CfnOutput;
 
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -33,8 +41,9 @@ export class HostingStack extends Stack {
 
     this.siteBucket = hosting.siteBucket;
     this.distribution = hosting.distribution;
+    this.distributionDomainName = hosting.distribution.distributionDomainName;
 
-    new CfnOutput(this, 'SiteUrl', {
+    this.siteUrlOutput = new CfnOutput(this, 'SiteUrl', {
       value: `https://${hosting.distribution.distributionDomainName}`,
       description: 'Public URL of the 40K Auspex app (CloudFront).',
     });

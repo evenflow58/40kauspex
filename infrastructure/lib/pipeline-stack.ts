@@ -1,5 +1,5 @@
 import { Construct } from 'constructs';
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import * as codebuild from 'aws-cdk-lib/aws-codebuild';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import {
@@ -23,6 +23,14 @@ export interface PipelineStackProps extends StackProps {
    * authorised once in the AWS console and reused here.
    */
   readonly codestarConnectionArn: string;
+  /**
+   * ID of the shared Cognito User Pool created by the one-time
+   * `AuthCoreStack`. Supplied via CDK context because `AuthCoreStack` deploys
+   * independently and its output is not available at pipeline synth time.
+   * Empty string until `AuthCoreStack` is deployed and its id added to
+   * `cdk.json` — `AppStage` skips the per-env `AuthStack` while it is empty.
+   */
+  readonly userPoolId: string;
 }
 
 /**
@@ -47,8 +55,18 @@ export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: PipelineStackProps) {
     super(scope, id, props);
 
-    const { githubOwner, githubRepo, githubBranch, codestarConnectionArn } =
-      props;
+    const {
+      githubOwner,
+      githubRepo,
+      githubBranch,
+      codestarConnectionArn,
+      userPoolId,
+    } = props;
+
+    // Cognito Hosted UI base URL. Derived from the stack region so this works
+    // if the pipeline is ever moved to another region.
+    const cognitoDomain =
+      `https://auspex40k-auth.auth.${this.region}.amazoncognito.com`;
 
     // Production federation URL for the shell. Relative path so the shell
     // loads mfe-home's remoteEntry.js from the SAME CloudFront distribution,
@@ -117,7 +135,39 @@ export class PipelineStack extends Stack {
         account: this.account,
         region: this.region,
       },
+      // Threaded through from CDK context. Empty until `AuthCoreStack` is
+      // deployed and its id added to `cdk.json`, in which case `AppStage`
+      // omits the per-environment `AuthStack`.
+      userPoolId,
     });
+
+    // The auth CfnOutputs only exist once `AuthStack` is synthesised (i.e.
+    // once `userPoolId` context is set). Wire them into the build env only
+    // then; otherwise `auth-config.json` is generated from the placeholder
+    // values checked into `apps/shell/public/auth-config.json`.
+    const authConfigured =
+      appStage.userPoolId !== undefined &&
+      appStage.userPoolClientId !== undefined;
+
+    const authEnvFromOutputs: Record<string, CfnOutput> =
+      authConfigured && appStage.userPoolId && appStage.userPoolClientId
+        ? {
+            USER_POOL_ID: appStage.userPoolId,
+            USER_POOL_CLIENT_ID: appStage.userPoolClientId,
+            SITE_URL: appStage.siteUrl,
+          }
+        : {};
+
+    // The auth-config.json upload step. Generated from the deployed stack
+    // outputs and copied to the S3 site root with a short cache TTL so a
+    // config change is picked up within a minute. Only runs once auth is
+    // configured — before that the checked-in placeholder config is used.
+    const authConfigCommands = authConfigured
+      ? [
+          'node -e "const fs=require(\'fs\'); fs.writeFileSync(\'auth-config.json\', JSON.stringify({userPoolId:process.env.USER_POOL_ID, clientId:process.env.USER_POOL_CLIENT_ID, cognitoDomain:process.env.COGNITO_DOMAIN, redirectUri:process.env.SITE_URL+\'/auth/callback\', postLogoutRedirectUri:process.env.SITE_URL+\'/\', scopes:[\'openid\',\'email\',\'profile\']}))"',
+          'aws s3 cp auth-config.json "s3://$SITE_BUCKET/auth-config.json" --cache-control "max-age=60"',
+        ]
+      : [];
 
     // App build + deploy. A `CodeBuildStep` (not a bare ShellStep) so we can
     // attach scoped IAM for the S3 sync + CloudFront invalidation. Bucket name
@@ -129,10 +179,14 @@ export class PipelineStack extends Stack {
       env: {
         VITE_MFE_HOME_URL: mfeHomeUrl,
         CI: 'true',
+        // Non-secret, environment-invariant Cognito Hosted UI domain.
+        COGNITO_DOMAIN: cognitoDomain,
       },
       envFromCfnOutputs: {
         SITE_BUCKET: appStage.siteBucketName,
         DISTRIBUTION_ID: appStage.distributionId,
+        // USER_POOL_ID / USER_POOL_CLIENT_ID / SITE_URL once auth is wired.
+        ...authEnvFromOutputs,
       },
       commands: [
         'corepack enable',
@@ -144,6 +198,9 @@ export class PipelineStack extends Stack {
         'pnpm build',
         'aws s3 sync apps/mfe-home/dist "s3://$SITE_BUCKET/mfe-home" --delete',
         'aws s3 sync apps/shell/dist "s3://$SITE_BUCKET" --delete --exclude "mfe-home/*"',
+        // Generate + upload auth-config.json from the deployed auth outputs
+        // (no-op until AuthStack is configured).
+        ...authConfigCommands,
         'aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"',
       ],
       // The site bucket name and distribution id are CDK-generated and not

@@ -16,6 +16,11 @@ export default defineConfig({
       shared: {
         react: { singleton: true, requiredVersion: '^18.3.1' },
         'react-dom': { singleton: true, requiredVersion: '^18.3.1' },
+        // Match the shell's shared modules exactly so this remote consumes
+        // the host's single auth context instead of bundling its own.
+        '@40kauspex/auth': { singleton: true },
+        'oidc-client-ts': { singleton: true },
+        'react-oidc-context': { singleton: true },
       },
     }),
   ],

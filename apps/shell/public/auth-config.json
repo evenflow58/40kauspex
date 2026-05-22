@@ -1,0 +1,8 @@
+{
+  "userPoolId": "us-east-1_PLACEHOLDER",
+  "clientId": "PLACEHOLDER",
+  "cognitoDomain": "https://auspex40k-auth.auth.us-east-1.amazoncognito.com",
+  "redirectUri": "http://localhost:3000/auth/callback",
+  "postLogoutRedirectUri": "http://localhost:3000/",
+  "scopes": ["openid", "email", "profile"]
+}

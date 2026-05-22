@@ -1,40 +1,39 @@
 {
-  "name": "@40kauspex/mfe-home",
+  "name": "@40kauspex/auth",
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "dev": "vite build && concurrently \"vite build --watch\" \"vite preview --port 3001\"",
-    "build": "vite build",
-    "preview": "vite preview --port 3001",
-    "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "dependencies": {
-    "@40kauspex/auth": "workspace:*",
-    "@40kauspex/ui": "workspace:*",
+  "peerDependencies": {
+    "oidc-client-ts": "^3.0.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-oidc-context": "^3.0.0",
+    "react-router-dom": "^7.0.0"
   },
   "devDependencies": {
-    "@originjs/vite-plugin-federation": "^1.3.6",
-    "@tailwindcss/vite": "^4.0.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
-    "concurrently": "^9.1.2",
     "jsdom": "^25.0.1",
     "oidc-client-ts": "^3.5.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-oidc-context": "^3.3.1",
     "react-router-dom": "^7.15.1",
-    "tailwindcss": "^4.0.0",
     "typescript": "^5.7.2",
-    "vite": "^6.0.7",
     "vitest": "^2.1.8"
   }
 }

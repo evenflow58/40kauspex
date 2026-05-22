@@ -6,3 +6,7 @@ dist
 .env.local
 *.log
 /.playwright-mcp
+
+# AWS CDK
+cdk.out/
+cdk-outputs.json

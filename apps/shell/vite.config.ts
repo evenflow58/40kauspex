@@ -21,6 +21,14 @@ export default defineConfig({
       shared: {
         react: { singleton: true, requiredVersion: '^18.3.1' },
         'react-dom': { singleton: true, requiredVersion: '^18.3.1' },
+        // Auth must be a singleton so the shell and mfe-home share ONE auth
+        // context — mfe-home reads the session the shell established.
+        // oidc-client-ts / react-oidc-context back the auth context, so they
+        // are shared too; without this they would each get a separate
+        // instance and the contexts would not match.
+        '@40kauspex/auth': { singleton: true },
+        'oidc-client-ts': { singleton: true },
+        'react-oidc-context': { singleton: true },
       },
     }),
   ],
