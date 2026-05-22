@@ -4,6 +4,7 @@ import * as cdk from 'aws-cdk-lib';
 import { PipelineStack } from '../lib/pipeline-stack';
 import { EphemeralStack } from '../lib/ephemeral-stack';
 import { GithubOidcStack } from '../lib/github-oidc-stack';
+import { AuthCoreStack } from '../lib/auth-core-stack';
 
 const app = new cdk.App();
 
@@ -36,6 +37,17 @@ const env = {
   region: process.env.CDK_DEFAULT_REGION ?? 'us-east-1',
 };
 
+// ID of the shared Cognito User Pool created by the one-time `AuthCoreStack`.
+// `AuthCoreStack` is deployed separately, so its output is not available at
+// pipeline synth time — it must be supplied here as CDK context. Defaults to
+// an empty string so the FIRST pipeline synth (before AuthCoreStack exists)
+// does not fail; `AppStage` skips the per-env `AuthStack` while it is empty.
+//
+// After deploying `AuthCoreStack`, copy its `UserPoolId` output into
+// `cdk.json` -> `context.userPoolId` so the pipeline wires the app client.
+const userPoolId =
+  app.node.tryGetContext('userPoolId') ?? process.env.USER_POOL_ID ?? '';
+
 // ---------------------------------------------------------------------------
 // Self-mutating production pipeline. Owns the `pipelines.CodePipeline`
 // construct, which deploys the hosting stack as a managed stage and applies
@@ -47,6 +59,7 @@ new PipelineStack(app, 'Auspex40kPipelineStack', {
   githubRepo,
   githubBranch,
   codestarConnectionArn,
+  userPoolId,
   env,
   description:
     '40K Auspex self-mutating CI/CD pipeline (CDK Pipelines). Deploys the production hosting stack and builds/deploys the front-end.',
@@ -64,6 +77,22 @@ new GithubOidcStack(app, 'Auspex40kGithubOidcStack', {
   description:
     '40K Auspex GitHub Actions OIDC provider + IAM role for ephemeral PR environments.',
 });
+
+// ---------------------------------------------------------------------------
+// One-time shared Cognito User Pool + Google IdP. Like `GithubOidcStack`, this
+// is always synthesised but deployed manually ONCE; it is never created or
+// destroyed by PR events and the pool is `RemovalPolicy.RETAIN`. After it is
+// deployed, its `UserPoolId` output must be added to `cdk.json` context as
+// `userPoolId` so the pipeline can attach per-environment app clients.
+// ---------------------------------------------------------------------------
+const authCoreStack = new AuthCoreStack(app, 'Auspex40kAuthCoreStack', {
+  env,
+  description:
+    '40K Auspex shared Cognito User Pool + Google IdP (one-time, retained).',
+});
+// Exported for reference; the pipeline consumes the pool id via CDK context
+// (see `userPoolId` above) because `AuthCoreStack` deploys independently.
+void authCoreStack.userPool.userPoolId;
 
 // ---------------------------------------------------------------------------
 // Ephemeral per-PR environment. Synthesised ONLY when a `prNumber` context
@@ -89,6 +118,7 @@ if (prNumber) {
 
   new EphemeralStack(app, `Auspex40kPrEnv-${pr}`, {
     prNumber: pr,
+    userPoolId,
     env,
     description: `40K Auspex ephemeral preview environment for PR #${pr}.`,
   });

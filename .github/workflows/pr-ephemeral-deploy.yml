@@ -53,17 +53,28 @@ jobs:
         working-directory: infrastructure
         run: pnpm install --ignore-workspace --frozen-lockfile
 
+      # The shared User Pool id is supplied via CDK context so the PR env's
+      # AuthStack can attach its own app client. Stored as a repo variable
+      # (not a secret — a pool id is a public identifier) and populated after
+      # `AuthCoreStack` is deployed. Empty until then: the PR env still
+      # deploys, just without a per-PR app client / generated auth-config.
       - name: Deploy ephemeral CDK stack
         working-directory: infrastructure
+        env:
+          USER_POOL_ID: ${{ vars.COGNITO_USER_POOL_ID }}
         run: |
           npx cdk deploy "Auspex40kPrEnv-${PR_NUMBER}" \
             -c prNumber="${PR_NUMBER}" \
+            -c userPoolId="${USER_POOL_ID}" \
             --require-approval never \
             --outputs-file cdk-outputs.json
 
       # --- Resolve the freshly-created bucket / distribution --------------
       # `set -euo pipefail` + explicit emptiness checks prevent a missing
       # output silently producing an `s3:///mfe-home`-style malformed target.
+      # The auth outputs (UserPoolId / UserPoolClientId) are only present once
+      # `AuthCoreStack` has been deployed and COGNITO_USER_POOL_ID is set, so
+      # they are read leniently (`// empty`) and gate the auth-config step.
       - name: Read stack outputs
         id: outputs
         working-directory: infrastructure
@@ -73,6 +84,8 @@ jobs:
           BUCKET=$(jq -er ".\"${STACK}\".SiteBucketName" cdk-outputs.json)
           DIST_ID=$(jq -er ".\"${STACK}\".DistributionId" cdk-outputs.json)
           SITE_URL=$(jq -er ".\"${STACK}\".SiteUrl" cdk-outputs.json)
+          USER_POOL_ID=$(jq -r ".\"${STACK}\".UserPoolId // empty" cdk-outputs.json)
+          USER_POOL_CLIENT_ID=$(jq -r ".\"${STACK}\".UserPoolClientId // empty" cdk-outputs.json)
           if [ -z "$BUCKET" ] || [ -z "$DIST_ID" ] || [ -z "$SITE_URL" ]; then
             echo "::error::Failed to resolve stack outputs for ${STACK}"
             cat cdk-outputs.json
@@ -81,6 +94,8 @@ jobs:
           echo "bucket=${BUCKET}" >> "$GITHUB_OUTPUT"
           echo "distribution_id=${DIST_ID}" >> "$GITHUB_OUTPUT"
           echo "site_url=${SITE_URL}" >> "$GITHUB_OUTPUT"
+          echo "user_pool_id=${USER_POOL_ID}" >> "$GITHUB_OUTPUT"
+          echo "user_pool_client_id=${USER_POOL_CLIENT_ID}" >> "$GITHUB_OUTPUT"
 
       # --- Build the front-end --------------------------------------------
       # `pnpm build` runs `vite build`, which sets NODE_ENV=production. The
@@ -106,6 +121,24 @@ jobs:
         run: |
           aws s3 sync apps/mfe-home/dist "s3://${{ steps.outputs.outputs.bucket }}/mfe-home" --delete
           aws s3 sync apps/shell/dist "s3://${{ steps.outputs.outputs.bucket }}" --delete --exclude "mfe-home/*"
+
+      # --- Generate and upload the runtime auth config --------------------
+      # Renders auth-config.json from the deployed AuthStack outputs and
+      # uploads it to the S3 site root with a short cache TTL so the SPA picks
+      # up the PR env's own Cognito app client. Skipped (and the checked-in
+      # placeholder auth-config.json is used) until AuthCoreStack is deployed
+      # and COGNITO_USER_POOL_ID is set — i.e. when the auth outputs exist.
+      - name: Generate and upload auth-config.json
+        if: ${{ steps.outputs.outputs.user_pool_id != '' && steps.outputs.outputs.user_pool_client_id != '' }}
+        env:
+          USER_POOL_ID: ${{ steps.outputs.outputs.user_pool_id }}
+          USER_POOL_CLIENT_ID: ${{ steps.outputs.outputs.user_pool_client_id }}
+          COGNITO_DOMAIN: https://auspex40k-auth.auth.us-east-1.amazoncognito.com
+          SITE_URL: ${{ steps.outputs.outputs.site_url }}
+          SITE_BUCKET: ${{ steps.outputs.outputs.bucket }}
+        run: |
+          node -e "const fs=require('fs'); fs.writeFileSync('auth-config.json', JSON.stringify({userPoolId:process.env.USER_POOL_ID, clientId:process.env.USER_POOL_CLIENT_ID, cognitoDomain:process.env.COGNITO_DOMAIN, redirectUri:process.env.SITE_URL+'/auth/callback', postLogoutRedirectUri:process.env.SITE_URL+'/', scopes:['openid','email','profile']}))"
+          aws s3 cp auth-config.json "s3://$SITE_BUCKET/auth-config.json" --cache-control "max-age=60"
 
       - name: Invalidate CloudFront cache
         run: |

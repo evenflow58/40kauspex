@@ -13,6 +13,7 @@
     ]
   },
   "context": {
+    "_comment_userPoolId": "After deploying Auspex40kAuthCoreStack, paste its UserPoolId output here (key: userPoolId) so the pipeline wires the per-environment AuthStack and auth-config.json. Leave unset for the first synth.",
     "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
     "@aws-cdk/core:checkSecretUsage": true,
     "@aws-cdk/core:target-partitions": ["aws", "aws-cn"],
