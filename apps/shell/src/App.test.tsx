@@ -84,6 +84,11 @@ describe('shell App', () => {
     expect(await screen.findByTestId('remote-home')).toBeInTheDocument()
   })
 
+  it('renders the companion remote on the /companion route', async () => {
+    renderApp('/companion')
+    expect(await screen.findByTestId('remote-companion')).toBeInTheDocument()
+  })
+
   it('renders the login page on the /login route for an unauthenticated user', () => {
     // An authenticated user is bounced off /login by LoginPage's own guard,
     // so this route assertion uses the unauthenticated state.
