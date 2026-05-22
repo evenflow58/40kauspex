@@ -1,39 +1,43 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useAuth as useOidcAuth } from 'react-oidc-context'
+import { useAuth } from './useAuth'
 
 interface AuthCallbackProps {
-  /**
-   * Rendered while `oidc-client-ts` completes the authorization-code
-   * exchange. Defaults to nothing.
-   */
   pending?: React.ReactNode
-  /** Rendered if the exchange fails. Receives the error message. */
   renderError?: (message: string) => React.ReactNode
 }
 
 /**
- * Handles the `/auth/callback` route.
- *
- * The `react-oidc-context` provider performs the code-for-token exchange
- * automatically when it detects the `?code=&state=` params in the URL. This
- * component only watches that process: on success it navigates to `/`; on
- * failure it surfaces the error. It must be mounted OUTSIDE `RequireAuth`.
+ * Inner callback handler — only rendered when inside the OIDC provider
+ * (i.e. auth is configured). Watches the code-exchange and navigates to `/`
+ * on success.
  */
-export function AuthCallback({ pending, renderError }: AuthCallbackProps) {
+function OidcCallbackInner({ pending, renderError }: AuthCallbackProps) {
   const { isLoading, isAuthenticated, error } = useOidcAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Once the exchange has resolved into a session, leave the callback route.
     if (!isLoading && isAuthenticated) {
       navigate('/', { replace: true })
     }
   }, [isLoading, isAuthenticated, navigate])
 
-  if (error) {
-    return <>{renderError?.(error.message) ?? null}</>
-  }
-
+  if (error) return <>{renderError?.(error.message) ?? null}</>
   return <>{pending ?? null}</>
+}
+
+/**
+ * Handles the `/auth/callback` route.
+ *
+ * When auth is not configured (local dev), redirects straight to `/` so an
+ * accidental navigation here doesn't crash. When configured, delegates to
+ * `OidcCallbackInner` which safely calls `useOidcAuth()` inside its provider.
+ */
+export function AuthCallback(props: AuthCallbackProps) {
+  const { isConfigured } = useAuth()
+
+  if (!isConfigured) return <Navigate to="/" replace />
+
+  return <OidcCallbackInner {...props} />
 }

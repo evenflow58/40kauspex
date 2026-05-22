@@ -43,6 +43,11 @@ export interface AuthState {
   isLoading: boolean
   /** True once a valid session exists. */
   isAuthenticated: boolean
+  /**
+   * False when `auth-config.json` contains placeholder values (local dev
+   * without a deployed Cognito pool). Auth operations are no-ops in this mode.
+   */
+  isConfigured: boolean
   /** The signed-in user, or `null` when unauthenticated. */
   user: AuthUser | null
   /** Cognito access token for future API Gateway calls, or `null`. */

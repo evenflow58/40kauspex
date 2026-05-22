@@ -1,36 +1,23 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { AuthProvider as OidcAuthProvider } from 'react-oidc-context'
 import { WebStorageStateStore, type UserManagerSettings } from 'oidc-client-ts'
-import type { AuthConfig } from './types'
+import { AuthContext } from './context'
+import { OidcBridge } from './OidcBridge'
+import type { AuthConfig, AuthState } from './types'
 
-/** Where the runtime auth configuration is served from. */
 const AUTH_CONFIG_URL = '/auth-config.json'
 
-/**
- * Build the `oidc-client-ts` settings for a Cognito User Pool from the
- * runtime `auth-config.json`.
- *
- * Cognito's OIDC discovery document advertises the `cognito-idp.*` issuer
- * endpoints, NOT the Hosted UI OAuth endpoints used for the federated
- * (Google) flow. The Hosted UI endpoints are therefore supplied explicitly
- * as `metadata` so `oidc-client-ts` hits `{cognitoDomain}/oauth2/*` directly
- * and no discovery round-trip is needed.
- */
 function buildOidcSettings(config: AuthConfig): UserManagerSettings {
   const domain = config.cognitoDomain.replace(/\/$/, '')
-  // A Cognito User Pool ID is `<region>_<suffix>`, so the region is the
-  // segment before the first underscore — no separate config value needed.
   const region = config.userPoolId.split('_')[0]
   const issuer = `https://cognito-idp.${region}.amazonaws.com/${config.userPoolId}`
   return {
-    // The token issuer is the User Pool itself (used to validate `iss`).
     authority: issuer,
     client_id: config.clientId,
     redirect_uri: config.redirectUri,
     post_logout_redirect_uri: config.postLogoutRedirectUri,
     response_type: 'code',
     scope: config.scopes.join(' '),
-    // Explicit Hosted UI endpoints — see the doc comment above.
     metadata: {
       issuer,
       authorization_endpoint: `${domain}/oauth2/authorize`,
@@ -39,20 +26,28 @@ function buildOidcSettings(config: AuthConfig): UserManagerSettings {
       end_session_endpoint: `${domain}/logout`,
       jwks_uri: `${issuer}/.well-known/jwks.json`,
     },
-    // Tokens persist in sessionStorage so a tab refresh keeps the session;
-    // they are cleared when the tab closes.
     userStore: new WebStorageStateStore({ store: window.sessionStorage }),
   }
 }
 
-/**
- * Strip the `?code=&state=` query params from the URL once the callback has
- * been processed, so a refresh of `/auth/callback` does not re-trigger it.
- * Supplied to `react-oidc-context`'s `AuthProvider` (not part of the
- * `oidc-client-ts` `UserManagerSettings`).
- */
 function onSigninCallback(): void {
   window.history.replaceState({}, document.title, window.location.pathname)
+}
+
+/** Stub state served when `auth-config.json` has placeholder values (local dev). */
+const UNCONFIGURED_STATE: AuthState = {
+  isLoading: false,
+  isAuthenticated: false,
+  isConfigured: false,
+  user: null,
+  accessToken: null,
+  signIn: () => {
+    console.warn(
+      '[auth] Auth is not configured for local development. ' +
+        'Deploy AuthCoreStack and update auth-config.json to enable login.',
+    )
+  },
+  signOut: () => {},
 }
 
 interface AuthProviderProps {
@@ -62,16 +57,13 @@ interface AuthProviderProps {
 /**
  * Top-level auth provider for the 40K Auspex shell.
  *
- * Fetches the environment's `auth-config.json` at mount, builds the
- * `oidc-client-ts` settings, and renders the `react-oidc-context` provider.
- * While the config is in flight nothing is rendered; if the fetch fails an
- * inline error is shown (login cannot proceed without it).
- *
- * Declared as a Module Federation shared singleton so the federated
- * `mfe-home` reads the SAME auth context the shell establishes.
+ * Fetches `/auth-config.json` at mount and initialises the OIDC client.
+ * When the config contains placeholder values (local dev without a deployed
+ * Cognito pool) it renders a stub auth context so the app works without
+ * crashing or redirecting to a non-existent Cognito domain.
  */
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [settings, setSettings] = useState<UserManagerSettings | null>(null)
+  const [config, setConfig] = useState<AuthConfig | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -79,22 +71,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     fetch(AUTH_CONFIG_URL, { cache: 'no-store' })
       .then((res) => {
-        if (!res.ok) {
-          throw new Error(`auth-config.json responded ${res.status}`)
-        }
+        if (!res.ok) throw new Error(`auth-config.json responded ${res.status}`)
         return res.json() as Promise<AuthConfig>
       })
-      .then((config) => {
-        if (!cancelled) {
-          setSettings(buildOidcSettings(config))
-        }
+      .then((cfg) => {
+        if (!cancelled) setConfig(cfg)
       })
       .catch((err: unknown) => {
-        if (!cancelled) {
-          setError(
-            err instanceof Error ? err.message : 'Failed to load auth config'
-          )
-        }
+        if (!cancelled)
+          setError(err instanceof Error ? err.message : 'Failed to load auth config')
       })
 
     return () => {
@@ -110,14 +95,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
     )
   }
 
-  // Render nothing until the runtime config has loaded.
-  if (!settings) {
-    return null
+  if (!config) return null
+
+  // Local dev: placeholder config — skip OIDC entirely to avoid redirects to
+  // a non-existent Cognito domain.
+  if (config.clientId === 'PLACEHOLDER') {
+    return (
+      <AuthContext.Provider value={UNCONFIGURED_STATE}>
+        {children}
+      </AuthContext.Provider>
+    )
   }
 
   return (
-    <OidcAuthProvider {...settings} onSigninCallback={onSigninCallback}>
-      {children}
+    <OidcAuthProvider {...buildOidcSettings(config)} onSigninCallback={onSigninCallback}>
+      <OidcBridge>{children}</OidcBridge>
     </OidcAuthProvider>
   )
 }

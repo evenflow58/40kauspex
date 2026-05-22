@@ -10,6 +10,7 @@ const signIn = vi.fn()
 const authState = {
   isLoading: false,
   isAuthenticated: false,
+  isConfigured: true,
 }
 
 vi.mock('@40kauspex/auth', () => ({
@@ -35,6 +36,7 @@ describe('LoginPage', () => {
     signIn.mockClear()
     authState.isLoading = false
     authState.isAuthenticated = false
+    authState.isConfigured = true
   })
 
   it('renders the branded title and description', () => {

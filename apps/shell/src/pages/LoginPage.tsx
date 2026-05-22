@@ -42,7 +42,7 @@ function GoogleIcon() {
  * via Cognito's Hosted UI, handed straight off to Google.
  */
 export default function LoginPage() {
-  const { isAuthenticated, isLoading, signIn } = useAuth()
+  const { isAuthenticated, isLoading, isConfigured, signIn } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -70,10 +70,16 @@ export default function LoginPage() {
             size="lg"
             className="w-full"
             onClick={signIn}
+            disabled={!isConfigured}
           >
             <GoogleIcon />
             Sign in with Google
           </Button>
+          {!isConfigured && (
+            <p className="mt-2 text-center text-xs text-amber-500">
+              Auth not configured — deploy AuthCoreStack for local login.
+            </p>
+          )}
         </CardContent>
         <CardFooter className="justify-center">
           <p className="text-center text-xs text-muted-foreground">
