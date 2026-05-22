@@ -26,6 +26,9 @@ function buildOidcSettings(config: AuthConfig): UserManagerSettings {
       end_session_endpoint: `${domain}/logout`,
       jwks_uri: `${issuer}/.well-known/jwks.json`,
     },
+    // sessionStorage: cleared on tab close, not shared across tabs. Preferred
+    // over localStorage for tokens — move to HttpOnly cookies (BFF) when the
+    // API tier lands.
     userStore: new WebStorageStateStore({ store: window.sessionStorage }),
   }
 }

@@ -52,6 +52,9 @@ export function OidcBridge({ children }: { children: ReactNode }) {
       signIn,
       signOut,
     }),
+    // signIn/signOut are omitted: they only close over `oidc`, which is
+    // already covered by the three primitives below. oidc-client-ts replaces
+    // the User object on silent renew, so accessToken updates correctly.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [oidc.isLoading, oidc.isAuthenticated, oidc.user],
   )

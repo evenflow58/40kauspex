@@ -63,11 +63,10 @@ export class PipelineStack extends Stack {
       userPoolId,
     } = props;
 
-    // Cognito Hosted UI base URL. A stable constant: the prefix domain
-    // (`auspex40k-auth`) and region never change, so the deploy step does not
-    // need a CfnOutput for it. Mirrors the value emitted by `AuthCoreStack`.
+    // Cognito Hosted UI base URL. Derived from the stack region so this works
+    // if the pipeline is ever moved to another region.
     const cognitoDomain =
-      'https://auspex40k-auth.auth.us-east-1.amazoncognito.com';
+      `https://auspex40k-auth.auth.${this.region}.amazoncognito.com`;
 
     // Production federation URL for the shell. Relative path so the shell
     // loads mfe-home's remoteEntry.js from the SAME CloudFront distribution,
