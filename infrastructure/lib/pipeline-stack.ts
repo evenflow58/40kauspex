@@ -162,8 +162,8 @@ export class PipelineStack extends Stack {
             's3:DeleteObject',
           ],
           resources: [
-            'arn:aws:s3:::auspex40khostingstack-*',
-            'arn:aws:s3:::auspex40khostingstack-*/*',
+            'arn:aws:s3:::auspex40kdeploymentstack-*',
+            'arn:aws:s3:::auspex40kdeploymentstack-*/*',
           ],
         }),
         new iam.PolicyStatement({

@@ -23,12 +23,12 @@ export class AppStage extends Stage {
   constructor(scope: Construct, id: string, props?: StageProps) {
     super(scope, id, props);
 
-    // Explicit `stackName` so the deployed CloudFormation stack is
-    // `Auspex40kHostingStack` rather than the stage-prefixed
-    // `Prod-Auspex40kHostingStack`. This keeps the production stack name
-    // stable and makes the bucket name prefix predictable for IAM scoping.
+    // Preserve the original stack name `Auspex40kDeploymentStack` so
+    // CloudFormation treats this as an UPDATE to the existing stack rather
+    // than creating a new one. This keeps the existing S3 bucket and
+    // CloudFront distribution (and URL) intact during the pipeline migration.
     const hosting = new HostingStack(this, 'Auspex40kHostingStack', {
-      stackName: 'Auspex40kHostingStack',
+      stackName: 'Auspex40kDeploymentStack',
       description:
         '40K Auspex static hosting (private S3 bucket + CloudFront distribution).',
     });
