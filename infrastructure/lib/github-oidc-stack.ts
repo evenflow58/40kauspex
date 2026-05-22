@@ -104,6 +104,16 @@ export class GithubOidcStack extends Stack {
               ],
               resources: ['*'],
             }),
+            // Trigger the production CodePipeline on push to main.
+            // Scoped to the single pipeline ARN so no other pipelines can be
+            // started by this role.
+            new iam.PolicyStatement({
+              sid: 'TriggerProductionPipeline',
+              actions: ['codepipeline:StartPipelineExecution'],
+              resources: [
+                `arn:aws:codepipeline:${this.region}:${this.account}:auspex40k-pipeline`,
+              ],
+            }),
           ],
         }),
       },
