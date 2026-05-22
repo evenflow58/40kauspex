@@ -3,6 +3,7 @@ import { Stage, StageProps, CfnOutput } from 'aws-cdk-lib';
 import { HostingStack } from './hosting-stack';
 import { AuthStack } from './auth-stack';
 import { ApiStack } from './api-stack';
+import { DataStack } from './data-stack';
 
 export interface AppStageProps extends StageProps {
   /**
@@ -70,6 +71,15 @@ export class AppStage extends Stage {
     this.distributionId = hosting.distributionIdOutput;
     this.siteUrl = hosting.siteUrlOutput;
 
+    // The companion data tier (DynamoDB) has no dependency on auth, so it is
+    // created unconditionally. The fixed table name keeps this stack an
+    // UPDATE rather than a replacement across deploys.
+    const data = new DataStack(this, 'Auspex40kDataStack', {
+      description:
+        '40K Auspex companion data tier (single DynamoDB table).',
+      tableName: 'auspex40k-companion',
+    });
+
     // The per-environment auth stack can only be synthesised once the shared
     // User Pool exists. `AuthCoreStack` is deployed separately and once; until
     // its `UserPoolId` is added to the pipeline's CDK context, `userPoolId` is
@@ -91,10 +101,11 @@ export class AppStage extends Stage {
       // materialises the cross-stack reference.
       const api = new ApiStack(this, 'Auspex40kApiStack', {
         description:
-          '40K Auspex HTTP API Gateway (Cognito JWT authorizer + health check).',
+          '40K Auspex HTTP API Gateway (Cognito JWT authorizer + companion services).',
         userPoolId: props.userPoolId,
         userPoolClientId: auth.userPoolClient.userPoolClientId,
         cognitoDomain: `https://cognito-idp.${this.region}.amazonaws.com/${props.userPoolId}`,
+        companionTable: data.table,
       });
 
       this.apiUrl = api.apiUrlOutput;

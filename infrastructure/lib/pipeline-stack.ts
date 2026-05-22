@@ -209,8 +209,9 @@ export class PipelineStack extends Stack {
         // The E2E step's rollback.sh restores from this prefix on failure.
         'aws s3 sync "s3://$SITE_BUCKET/" "s3://$SITE_BUCKET/_backup/" --delete --exclude "_backup/*"',
         'aws s3 sync apps/mfe-home/dist "s3://$SITE_BUCKET/mfe-home" --delete',
+        'aws s3 sync apps/mfe-companion/dist "s3://$SITE_BUCKET/mfe-companion" --delete',
         // Exclude _backup/ so the rollback snapshot is not wiped by the sync.
-        'aws s3 sync apps/shell/dist "s3://$SITE_BUCKET" --delete --exclude "mfe-home/*" --exclude "_backup/*"',
+        'aws s3 sync apps/shell/dist "s3://$SITE_BUCKET" --delete --exclude "mfe-home/*" --exclude "mfe-companion/*" --exclude "_backup/*"',
         // Generate + upload auth-config.json from the deployed auth outputs
         // (no-op until AuthStack is configured).
         ...authConfigCommands,
