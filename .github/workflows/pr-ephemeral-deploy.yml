@@ -51,7 +51,7 @@ jobs:
       # --ignore-workspace is required) and deploys a PR-scoped stack.
       - name: Install CDK dependencies
         working-directory: infrastructure
-        run: pnpm install --ignore-workspace --frozen-lockfile
+        run: pnpm install --ignore-workspace --frozen-lockfile --ignore-scripts
 
       # The shared User Pool id is supplied via CDK context so the PR env's
       # AuthStack can attach its own app client. Stored as a repo variable
@@ -63,7 +63,7 @@ jobs:
         env:
           USER_POOL_ID: ${{ vars.COGNITO_USER_POOL_ID }}
         run: |
-          npx cdk deploy "Auspex40kPrEnv-${PR_NUMBER}" \
+          npx cdk deploy "Auspex40kPrEnv-${PR_NUMBER}" "Auspex40kPrApi-${PR_NUMBER}" \
             -c prNumber="${PR_NUMBER}" \
             -c userPoolId="${USER_POOL_ID}" \
             --require-approval never \
@@ -86,6 +86,7 @@ jobs:
           SITE_URL=$(jq -er ".\"${STACK}\".SiteUrl" cdk-outputs.json)
           USER_POOL_ID=$(jq -r ".\"${STACK}\".UserPoolId // empty" cdk-outputs.json)
           USER_POOL_CLIENT_ID=$(jq -r ".\"${STACK}\".UserPoolClientId // empty" cdk-outputs.json)
+          API_URL=$(jq -r ".\"Auspex40kPrApi-${PR_NUMBER}\".ApiUrl // empty" cdk-outputs.json)
           if [ -z "$BUCKET" ] || [ -z "$DIST_ID" ] || [ -z "$SITE_URL" ]; then
             echo "::error::Failed to resolve stack outputs for ${STACK}"
             cat cdk-outputs.json
@@ -96,6 +97,7 @@ jobs:
           echo "site_url=${SITE_URL}" >> "$GITHUB_OUTPUT"
           echo "user_pool_id=${USER_POOL_ID}" >> "$GITHUB_OUTPUT"
           echo "user_pool_client_id=${USER_POOL_CLIENT_ID}" >> "$GITHUB_OUTPUT"
+          echo "api_url=${API_URL}" >> "$GITHUB_OUTPUT"
 
       # --- Build the front-end --------------------------------------------
       # `pnpm build` runs `vite build`, which sets NODE_ENV=production. The
@@ -136,8 +138,9 @@ jobs:
           COGNITO_DOMAIN: https://auspex40k-auth.auth.us-east-1.amazoncognito.com
           SITE_URL: ${{ steps.outputs.outputs.site_url }}
           SITE_BUCKET: ${{ steps.outputs.outputs.bucket }}
+          API_URL: ${{ steps.outputs.outputs.api_url }}
         run: |
-          node -e "const fs=require('fs'); fs.writeFileSync('auth-config.json', JSON.stringify({userPoolId:process.env.USER_POOL_ID, clientId:process.env.USER_POOL_CLIENT_ID, cognitoDomain:process.env.COGNITO_DOMAIN, redirectUri:process.env.SITE_URL+'/auth/callback', postLogoutRedirectUri:process.env.SITE_URL+'/', scopes:['openid','email','profile']}))"
+          node -e "const fs=require('fs'); fs.writeFileSync('auth-config.json', JSON.stringify({userPoolId:process.env.USER_POOL_ID, clientId:process.env.USER_POOL_CLIENT_ID, cognitoDomain:process.env.COGNITO_DOMAIN, redirectUri:process.env.SITE_URL+'/auth/callback', postLogoutRedirectUri:process.env.SITE_URL+'/', scopes:['openid','email','profile'], apiUrl:process.env.API_URL||''}))"
           aws s3 cp auth-config.json "s3://$SITE_BUCKET/auth-config.json" --cache-control "max-age=60"
 
       - name: Invalidate CloudFront cache

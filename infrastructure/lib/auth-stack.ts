@@ -1,5 +1,6 @@
 import { Construct } from 'constructs';
 import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
+import * as cognito from 'aws-cdk-lib/aws-cognito';
 import { Auth } from './auth';
 
 export interface AuthStackProps extends StackProps {
@@ -30,6 +31,12 @@ export class AuthStack extends Stack {
   public readonly userPoolClientIdOutput: CfnOutput;
   /** Output carrying the shared User Pool id (consumed by the deploy step). */
   public readonly userPoolIdOutput: CfnOutput;
+  /**
+   * The per-environment Cognito app client. Re-exported from the nested
+   * `Auth` construct so a sibling stack (e.g. `ApiStack`) can use its
+   * `userPoolClientId` token as the JWT authorizer audience.
+   */
+  public readonly userPoolClient: cognito.IUserPoolClient;
 
   constructor(scope: Construct, id: string, props: AuthStackProps) {
     super(scope, id, props);
@@ -37,6 +44,7 @@ export class AuthStack extends Stack {
     const { userPoolId, distributionDomain } = props;
 
     const auth = new Auth(this, 'Auth', { userPoolId, distributionDomain });
+    this.userPoolClient = auth.userPoolClient;
 
     // Outputs are defined at STACK scope so their template keys are exactly
     // `UserPoolClientId` / `UserPoolId` for `envFromCfnOutputs` / `jq`.

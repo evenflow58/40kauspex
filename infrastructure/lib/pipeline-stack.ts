@@ -95,13 +95,18 @@ export class PipelineStack extends Stack {
     // ---- Synth step --------------------------------------------------------
     // The `infrastructure/` package has its own pnpm-lock.yaml and is NOT a
     // workspace member, so `--ignore-workspace` is required for its install.
+    // `--ignore-scripts` skips dependency lifecycle scripts: `esbuild` (used
+    // by `NodejsFunction` to bundle the Lambda) ships a postinstall that
+    // pnpm 11 otherwise gates behind an interactive approval prompt. esbuild
+    // resolves its platform binary from an optional dependency at runtime, so
+    // it is fully functional without the postinstall running.
     const synth = new ShellStep('Synth', {
       input: source,
       commands: [
         'cd infrastructure',
         'corepack enable',
         'corepack prepare pnpm@11.2.2 --activate',
-        'pnpm install --frozen-lockfile --ignore-workspace',
+        'pnpm install --frozen-lockfile --ignore-workspace --ignore-scripts',
         'pnpm exec cdk synth',
       ],
       // `cdk synth` writes to infrastructure/cdk.out because the command runs
@@ -150,11 +155,15 @@ export class PipelineStack extends Stack {
       appStage.userPoolClientId !== undefined;
 
     const authEnvFromOutputs: Record<string, CfnOutput> =
-      authConfigured && appStage.userPoolId && appStage.userPoolClientId
+      authConfigured &&
+      appStage.userPoolId &&
+      appStage.userPoolClientId &&
+      appStage.apiUrl
         ? {
             USER_POOL_ID: appStage.userPoolId,
             USER_POOL_CLIENT_ID: appStage.userPoolClientId,
             SITE_URL: appStage.siteUrl,
+            API_URL: appStage.apiUrl,
           }
         : {};
 
@@ -164,7 +173,7 @@ export class PipelineStack extends Stack {
     // configured — before that the checked-in placeholder config is used.
     const authConfigCommands = authConfigured
       ? [
-          'node -e "const fs=require(\'fs\'); fs.writeFileSync(\'auth-config.json\', JSON.stringify({userPoolId:process.env.USER_POOL_ID, clientId:process.env.USER_POOL_CLIENT_ID, cognitoDomain:process.env.COGNITO_DOMAIN, redirectUri:process.env.SITE_URL+\'/auth/callback\', postLogoutRedirectUri:process.env.SITE_URL+\'/\', scopes:[\'openid\',\'email\',\'profile\']}))"',
+          'node -e "const fs=require(\'fs\'); fs.writeFileSync(\'auth-config.json\', JSON.stringify({userPoolId:process.env.USER_POOL_ID, clientId:process.env.USER_POOL_CLIENT_ID, cognitoDomain:process.env.COGNITO_DOMAIN, redirectUri:process.env.SITE_URL+\'/auth/callback\', postLogoutRedirectUri:process.env.SITE_URL+\'/\', scopes:[\'openid\',\'email\',\'profile\'], apiUrl:process.env.API_URL}))"',
           'aws s3 cp auth-config.json "s3://$SITE_BUCKET/auth-config.json" --cache-control "max-age=60"',
         ]
       : [];
