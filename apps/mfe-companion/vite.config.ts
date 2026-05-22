@@ -1,0 +1,40 @@
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import federation from '@originjs/vite-plugin-federation'
+
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(),
+    federation({
+      name: 'mfe_companion',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './App': './src/App.tsx',
+      },
+      shared: {
+        react: { singleton: true, requiredVersion: '^18.3.1' },
+        'react-dom': { singleton: true, requiredVersion: '^18.3.1' },
+        // Match the shell's shared modules exactly so this remote consumes
+        // the host's single auth context instead of bundling its own.
+        '@40kauspex/auth': { singleton: true },
+        'oidc-client-ts': { singleton: true },
+        'react-oidc-context': { singleton: true },
+      },
+    }),
+  ],
+  build: {
+    target: 'esnext',
+    minify: false,
+    cssCodeSplit: false,
+  },
+  preview: {
+    port: 3002,
+    cors: true,
+  },
+  server: {
+    port: 3002,
+    cors: true,
+  },
+})

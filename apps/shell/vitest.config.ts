@@ -16,6 +16,9 @@ export default defineConfig({
       'mfe_home/App': fileURLToPath(
         new URL('./src/test/mfe-home-stub.tsx', import.meta.url)
       ),
+      'mfe_companion/App': fileURLToPath(
+        new URL('./src/test/mfe-companion-stub.tsx', import.meta.url)
+      ),
     },
   },
   test: {

@@ -6,6 +6,7 @@ import { EphemeralStack } from '../lib/ephemeral-stack';
 import { GithubOidcStack } from '../lib/github-oidc-stack';
 import { AuthCoreStack } from '../lib/auth-core-stack';
 import { ApiStack } from '../lib/api-stack';
+import { DataStack } from '../lib/data-stack';
 
 const app = new cdk.App();
 
@@ -128,12 +129,21 @@ if (prNumber) {
   // the JWT authorizer needs the per-PR app client. It is a sibling stack of
   // `EphemeralStack` (CDK forbids nesting one `Stack` inside another).
   if (userPoolId && ephemeral.userPoolClient) {
+    // Each PR env also gets its own isolated companion DynamoDB table so
+    // preview data never collides with production or another PR.
+    const prData = new DataStack(app, `Auspex40kPrData-${pr}`, {
+      env,
+      description: `40K Auspex companion data tier for PR #${pr}.`,
+      tableName: `auspex40k-companion-pr-${pr}`,
+    });
+
     new ApiStack(app, `Auspex40kPrApi-${pr}`, {
       env,
       description: `40K Auspex HTTP API for PR #${pr} preview environment.`,
       userPoolId,
       userPoolClientId: ephemeral.userPoolClient.userPoolClientId,
       cognitoDomain: `https://cognito-idp.${env.region}.amazonaws.com/${userPoolId}`,
+      companionTable: prData.table,
     });
   }
 }

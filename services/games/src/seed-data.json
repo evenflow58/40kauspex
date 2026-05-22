@@ -1,0 +1,413 @@
+{
+  "games": [
+    {
+      "gameId": "warhammer-40k",
+      "name": "Warhammer 40,000",
+      "available": true,
+      "description": "The grim darkness of the far future. 10th edition rules companion."
+    },
+    {
+      "gameId": "age-of-sigmar",
+      "name": "Age of Sigmar",
+      "available": false,
+      "description": "Battles in the Mortal Realms. Support coming soon."
+    }
+  ],
+  "phases": {
+    "warhammer-40k": [
+      {
+        "order": 1,
+        "name": "Command Phase",
+        "description": "At the start of your turn you gain 1 Command Point. Units below half-strength must take Battle-shock tests. This is when you use Command abilities and many Stratagems.",
+        "keyActions": [
+          "Gain 1 Command Point (CP)",
+          "Take Battle-shock tests for units below half-strength",
+          "Use Command-phase abilities and Stratagems"
+        ],
+        "relevantKeywords": ["LEADER", "CHARACTER"]
+      },
+      {
+        "order": 2,
+        "name": "Movement Phase",
+        "description": "Move your units across the battlefield. Each unit can make a Normal Move, Advance, or Remain Stationary. Reinforcements arrive and units may embark or disembark from transports.",
+        "keyActions": [
+          "Make Normal Moves, Advances, or Remain Stationary",
+          "Set up reinforcement units arriving from reserves",
+          "Embark and disembark from transports"
+        ],
+        "relevantKeywords": ["FLY", "INFANTRY", "TRANSPORT", "DEEP STRIKE"]
+      },
+      {
+        "order": 3,
+        "name": "Shooting Phase",
+        "description": "Select eligible units with ranged weapons, choose targets, and resolve attacks. Make hit rolls, wound rolls, saving throws, and allocate damage.",
+        "keyActions": [
+          "Select units with ranged weapons to shoot",
+          "Choose valid targets and resolve ranged attacks",
+          "Apply weapon abilities such as Rapid Fire and Blast"
+        ],
+        "relevantKeywords": ["RAPID FIRE", "HEAVY", "ASSAULT", "PISTOL", "BLAST", "TORRENT"]
+      },
+      {
+        "order": 4,
+        "name": "Charge Phase",
+        "description": "Declare charge moves with eligible units. Roll 2D6 for charge distance; the unit must end within Engagement Range of every target. Characters may perform Heroic Interventions.",
+        "keyActions": [
+          "Declare charges and choose charge targets",
+          "Roll 2D6 and make the charge move into Engagement Range",
+          "Resolve Heroic Interventions"
+        ],
+        "relevantKeywords": ["CAVALRY", "MONSTER", "VEHICLE"]
+      },
+      {
+        "order": 5,
+        "name": "Fight Phase",
+        "description": "Units within Engagement Range fight. Players alternate selecting units to fight, starting with the player whose turn it is not. Units Pile In, make attacks, and Consolidate.",
+        "keyActions": [
+          "Fight with units in Engagement Range, alternating between players",
+          "Pile In before attacking and Consolidate afterwards",
+          "Resolve melee weapon abilities"
+        ],
+        "relevantKeywords": ["FIGHTS FIRST", "FIGHTS LAST", "LETHAL HITS", "SUSTAINED HITS"]
+      }
+    ]
+  },
+  "factions": {
+    "warhammer-40k": [
+      { "factionId": "space-marines", "name": "Space Marines" },
+      { "factionId": "chaos-space-marines", "name": "Chaos Space Marines" },
+      { "factionId": "orks", "name": "Orks" },
+      { "factionId": "necrons", "name": "Necrons" }
+    ]
+  },
+  "units": {
+    "space-marines": [
+      {
+        "unitId": "sm-intercessor-squad",
+        "name": "Intercessor Squad",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE", "ASSAULT"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Objective Secured: counts as one additional model when contesting objective markers."
+      },
+      {
+        "unitId": "sm-assault-intercessor-squad",
+        "name": "Assault Intercessor Squad",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Shock Assault: re-roll Charge rolls for this unit."
+      },
+      {
+        "unitId": "sm-incursor-squad",
+        "name": "Incursor Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "PHOBOS", "ASSAULT", "DEEP STRIKE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Multi-spectrum Array: ignores the benefits of cover and Stealth when shooting."
+      },
+      {
+        "unitId": "sm-tactical-squad",
+        "name": "Tactical Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "RAPID FIRE", "HEAVY", "GRENADES"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Combat Squads: may be split into two units before the battle."
+      },
+      {
+        "unitId": "sm-devastator-squad",
+        "name": "Devastator Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "HEAVY", "BLAST"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Signum: one model improves the Ballistic Skill of its attacks each turn."
+      },
+      {
+        "unitId": "sm-land-raider",
+        "name": "Land Raider",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TRANSPORT", "HEAVY", "TORRENT"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Assault Ramp: embarked units may charge in a turn they disembark."
+      },
+      {
+        "unitId": "sm-predator-annihilator",
+        "name": "Predator Annihilator",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "HEAVY", "BLAST"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Hunter-killer optics: re-roll a single Hit roll each Shooting Phase."
+      },
+      {
+        "unitId": "sm-librarian",
+        "name": "Librarian",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "PSYKER", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Psychic Hood: subtract 1 from Psychic attacks targeting this unit."
+      }
+    ],
+    "chaos-space-marines": [
+      {
+        "unitId": "csm-chaos-space-marines",
+        "name": "Chaos Space Marines",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Malicious Volleys: this unit's Rapid Fire weapons make extra attacks against units in range."
+      },
+      {
+        "unitId": "csm-chosen",
+        "name": "Chosen",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "ASSAULT", "PISTOL", "LETHAL HITS"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Veterans of the Long War: improves the Strength of this unit's melee attacks."
+      },
+      {
+        "unitId": "csm-chaos-havocs",
+        "name": "Chaos Havocs",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "HEAVY", "BLAST"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Heavy Weapon Specialists: re-roll Hit rolls of 1 if the unit Remained Stationary."
+      },
+      {
+        "unitId": "csm-terminators",
+        "name": "Terminators",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "TERMINATOR", "DEEP STRIKE", "RAPID FIRE"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Teleport Strike: arrives from Reserves via Deep Strike."
+      },
+      {
+        "unitId": "csm-chaos-lord",
+        "name": "Chaos Lord",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Mark of Chaos: grants the led unit a Dark Pact ability."
+      },
+      {
+        "unitId": "csm-helbrute",
+        "name": "Helbrute",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "MONSTER", "HEAVY"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Crazed: makes a bonus move or shoot action when destroyed."
+      },
+      {
+        "unitId": "csm-rhino",
+        "name": "Rhino",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TRANSPORT", "PISTOL"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Self-repair: regains a lost wound at the start of each Command Phase."
+      },
+      {
+        "unitId": "csm-obliterators",
+        "name": "Obliterators",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "DEEP STRIKE", "HEAVY", "BLAST", "ASSAULT"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Fleshmetal Guns: their weapon profile changes each Shooting Phase."
+      }
+    ],
+    "orks": [
+      {
+        "unitId": "ork-boyz",
+        "name": "Boyz",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "PISTOL", "ASSAULT"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Breakin' Heads: a Boss model can force a re-roll of the unit's Hit rolls."
+      },
+      {
+        "unitId": "ork-nobz",
+        "name": "Nobz",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "PISTOL", "SUSTAINED HITS"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "'Ard as Nails: improves the Save characteristic of this unit."
+      },
+      {
+        "unitId": "ork-gretchin",
+        "name": "Gretchin",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "GRETCHIN", "RAPID FIRE"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Grot Shield: can be sacrificed to protect a nearby Ork unit."
+      },
+      {
+        "unitId": "ork-lootas",
+        "name": "Lootas",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "HEAVY", "BLAST"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "More Dakka: deafening guns make a variable number of shots."
+      },
+      {
+        "unitId": "ork-tankbustas",
+        "name": "Tankbustas",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "HEAVY", "ASSAULT"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Tank Hunters: re-roll Hit and Wound rolls against Monsters and Vehicles."
+      },
+      {
+        "unitId": "ork-warboss",
+        "name": "Warboss",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Da Biggest and da Best: the led unit gains an attacks bonus on the charge."
+      },
+      {
+        "unitId": "ork-deff-dread",
+        "name": "Deff Dread",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "HEAVY"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Fury of the Dread: gains extra attacks for each weapon it is equipped with."
+      },
+      {
+        "unitId": "ork-battlewagon",
+        "name": "Battlewagon",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TRANSPORT", "HEAVY", "BLAST"],
+        "movement": 9,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "'Ramshackle but Rugged': reduces incoming Damage characteristics by 1."
+      }
+    ],
+    "necrons": [
+      {
+        "unitId": "necron-warriors",
+        "name": "Warriors",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE", "ASSAULT"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Reanimation Protocols: this unit reanimates wounds each Command Phase."
+      },
+      {
+        "unitId": "necron-immortals",
+        "name": "Immortals",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "RAPID FIRE", "ASSAULT"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Reanimation Protocols: this unit reanimates wounds each Command Phase."
+      },
+      {
+        "unitId": "necron-lychguard",
+        "name": "Lychguard",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "FIGHTS FIRST"],
+        "movement": 5,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Bodyguard: can intercept attacks aimed at an attached Character."
+      },
+      {
+        "unitId": "necron-triarch-praetorians",
+        "name": "Triarch Praetorians",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "FLY", "DEEP STRIKE", "ASSAULT"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Praetorian Strike: improves attacks made after Advancing."
+      },
+      {
+        "unitId": "necron-overlord",
+        "name": "Overlord",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "PISTOL"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "My Will Be Done: improves the Hit rolls of the led unit."
+      },
+      {
+        "unitId": "necron-canoptek-scarab-swarms",
+        "name": "Canoptek Scarab Swarms",
+        "battlefieldRole": "Other",
+        "keywords": ["SWARM", "CANOPTEK", "FLY"],
+        "movement": 10,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Entropic Strike: melee attacks gain additional damage against Vehicles."
+      },
+      {
+        "unitId": "necron-ghost-ark",
+        "name": "Ghost Ark",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TRANSPORT", "HEAVY"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Repair Barge: reanimates wounds for a nearby Necron unit each turn."
+      },
+      {
+        "unitId": "necron-annihilation-barge",
+        "name": "Annihilation Barge",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "HEAVY", "SUSTAINED HITS"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Death Ray: a powerful arc weapon that can strike multiple targets."
+      }
+    ]
+  }
+}
