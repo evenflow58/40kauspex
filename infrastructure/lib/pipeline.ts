@@ -105,6 +105,13 @@ export class Pipeline extends Construct {
           },
           build: {
             commands: [
+              // Run the unit tests BEFORE the build. CodeBuild has no way to
+              // insert a named phase between `pre_build` and `build`, so the
+              // test command runs as the first step of the `build` phase. A
+              // non-zero exit here fails the Build stage and prevents the
+              // `post_build` S3 sync from ever running.
+              'echo "Running unit tests..."',
+              'pnpm test --run',
               'echo "Building all workspaces with VITE_MFE_HOME_URL=$VITE_MFE_HOME_URL"',
               'pnpm build',
             ],
