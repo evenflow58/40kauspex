@@ -26,7 +26,7 @@ const githubBranch =
 const codestarConnectionArn =
   app.node.tryGetContext('codestarConnectionArn') ??
   process.env.CODESTAR_CONNECTION_ARN ??
-  'arn:aws:codestar-connections:us-east-1:625961017727:connection/6f2fe14d-cb27-4054-8785-73489305f1ec';
+  'arn:aws:codestar-connections:us-east-1:625961017727:connection/fbfcfe3b-0cb6-44fb-b4ba-cd6390ff8c24';
 
 // CDK Pipelines requires a concrete (non env-agnostic) environment so the
 // self-mutation step can resolve the bootstrap roles. Fall back to the known
