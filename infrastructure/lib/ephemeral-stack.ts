@@ -1,5 +1,6 @@
 import { Construct } from 'constructs';
 import { CfnOutput, Stack, StackProps, Tags } from 'aws-cdk-lib';
+import * as cognito from 'aws-cdk-lib/aws-cognito';
 import { Hosting } from './hosting';
 import { Auth } from './auth';
 
@@ -37,6 +38,13 @@ export interface EphemeralStackProps extends StackProps {
  * mutated by this stack.
  */
 export class EphemeralStack extends Stack {
+  /**
+   * The per-PR Cognito app client, when auth is configured. A sibling
+   * `ApiStack` reads its `userPoolClientId` token for the JWT authorizer
+   * audience. Undefined before `AuthCoreStack` has been deployed.
+   */
+  public readonly userPoolClient?: cognito.IUserPoolClient;
+
   constructor(scope: Construct, id: string, props: EphemeralStackProps) {
     super(scope, id, props);
 
@@ -74,6 +82,10 @@ export class EphemeralStack extends Stack {
         userPoolId,
         distributionDomain: hosting.distribution.distributionDomainName,
       });
+
+      // Exposed so a sibling `ApiStack` (created by the CDK app) can use the
+      // app client token as the JWT authorizer audience for this PR env.
+      this.userPoolClient = auth.userPoolClient;
 
       // Stack-scoped outputs so `jq` in the workflow reads them by exact key.
       new CfnOutput(this, 'UserPoolClientId', {

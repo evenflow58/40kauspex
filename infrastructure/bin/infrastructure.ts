@@ -5,6 +5,7 @@ import { PipelineStack } from '../lib/pipeline-stack';
 import { EphemeralStack } from '../lib/ephemeral-stack';
 import { GithubOidcStack } from '../lib/github-oidc-stack';
 import { AuthCoreStack } from '../lib/auth-core-stack';
+import { ApiStack } from '../lib/api-stack';
 
 const app = new cdk.App();
 
@@ -116,10 +117,23 @@ if (prNumber) {
     );
   }
 
-  new EphemeralStack(app, `Auspex40kPrEnv-${pr}`, {
+  const ephemeral = new EphemeralStack(app, `Auspex40kPrEnv-${pr}`, {
     prNumber: pr,
     userPoolId,
     env,
     description: `40K Auspex ephemeral preview environment for PR #${pr}.`,
   });
+
+  // Each PR env gets its OWN HTTP API. Created only once auth is configured —
+  // the JWT authorizer needs the per-PR app client. It is a sibling stack of
+  // `EphemeralStack` (CDK forbids nesting one `Stack` inside another).
+  if (userPoolId && ephemeral.userPoolClient) {
+    new ApiStack(app, `Auspex40kPrApi-${pr}`, {
+      env,
+      description: `40K Auspex HTTP API for PR #${pr} preview environment.`,
+      userPoolId,
+      userPoolClientId: ephemeral.userPoolClient.userPoolClientId,
+      cognitoDomain: `https://cognito-idp.${env.region}.amazonaws.com/${userPoolId}`,
+    });
+  }
 }

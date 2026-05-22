@@ -19,6 +19,8 @@ export interface AuthConfig {
   postLogoutRedirectUri: string
   /** OAuth scopes requested at sign-in. */
   scopes: string[]
+  /** Base URL of the HTTP API Gateway, e.g. `https://abc123.execute-api.us-east-1.amazonaws.com`. */
+  apiUrl?: string
 }
 
 /**

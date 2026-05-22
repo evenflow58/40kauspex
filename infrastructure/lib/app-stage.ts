@@ -2,6 +2,7 @@ import { Construct } from 'constructs';
 import { Stage, StageProps, CfnOutput } from 'aws-cdk-lib';
 import { HostingStack } from './hosting-stack';
 import { AuthStack } from './auth-stack';
+import { ApiStack } from './api-stack';
 
 export interface AppStageProps extends StageProps {
   /**
@@ -23,9 +24,9 @@ export interface AppStageProps extends StageProps {
  * the app build/deploy step as a `post` step once the CloudFormation has
  * converged.
  *
- * `siteBucketName`, `distributionId`, `siteUrl`, `userPoolId` and
- * `userPoolClientId` re-export the underlying stacks' CfnOutputs at stage
- * scope so the pipeline can reference them with
+ * `siteBucketName`, `distributionId`, `siteUrl`, `userPoolId`,
+ * `userPoolClientId` and `apiUrl` re-export the underlying stacks' CfnOutputs
+ * at stage scope so the pipeline can reference them with
  * `CodeBuildStep.envFromCfnOutputs`.
  */
 export class AppStage extends Stage {
@@ -45,6 +46,12 @@ export class AppStage extends Stage {
    * yet been deployed.
    */
   public readonly userPoolClientId?: CfnOutput;
+  /**
+   * API stack's HTTP API invoke URL output. Undefined when `AuthCoreStack`
+   * has not yet been deployed — the `ApiStack` (and its JWT authorizer) is
+   * only created once the shared User Pool exists.
+   */
+  public readonly apiUrl?: CfnOutput;
 
   constructor(scope: Construct, id: string, props: AppStageProps) {
     super(scope, id, props);
@@ -77,6 +84,20 @@ export class AppStage extends Stage {
 
       this.userPoolId = auth.userPoolIdOutput;
       this.userPoolClientId = auth.userPoolClientIdOutput;
+
+      // The HTTP API tier is only meaningful once the JWT authorizer can be
+      // wired to the shared pool. `auth.userPoolClient.userPoolClientId` is a
+      // plain CloudFormation token (not a CfnOutput) — passed directly so CDK
+      // materialises the cross-stack reference.
+      const api = new ApiStack(this, 'Auspex40kApiStack', {
+        description:
+          '40K Auspex HTTP API Gateway (Cognito JWT authorizer + health check).',
+        userPoolId: props.userPoolId,
+        userPoolClientId: auth.userPoolClient.userPoolClientId,
+        cognitoDomain: `https://cognito-idp.${this.region}.amazonaws.com/${props.userPoolId}`,
+      });
+
+      this.apiUrl = api.apiUrlOutput;
     }
   }
 }
