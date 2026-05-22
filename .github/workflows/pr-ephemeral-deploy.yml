@@ -1,0 +1,138 @@
+name: PR Ephemeral Environment - Deploy
+
+# Creates (or updates) an isolated preview environment for a pull request.
+# Triggered when a PR is opened, reopened, or has new commits pushed.
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+# One in-flight deploy per PR. A newer push cancels an older, still-running
+# deploy for the same PR so the environment always reflects the latest commit.
+concurrency:
+  group: pr-ephemeral-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write # required for AWS OIDC federation
+  contents: read # checkout
+  pull-requests: write # post / update the preview-URL comment
+
+env:
+  AWS_REGION: us-east-1
+  PR_NUMBER: ${{ github.event.pull_request.number }}
+
+jobs:
+  deploy:
+    name: Build and deploy PR preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable pnpm via corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.2.2 --activate
+          pnpm --version
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # --- Provision the ephemeral infrastructure --------------------------
+      # Installs CDK deps (infrastructure/ is NOT a pnpm workspace member, so
+      # --ignore-workspace is required) and deploys a PR-scoped stack.
+      - name: Install CDK dependencies
+        working-directory: infrastructure
+        run: pnpm install --ignore-workspace --frozen-lockfile
+
+      - name: Deploy ephemeral CDK stack
+        working-directory: infrastructure
+        run: |
+          npx cdk deploy "Auspex40kPrEnv-${PR_NUMBER}" \
+            -c prNumber="${PR_NUMBER}" \
+            --require-approval never \
+            --outputs-file cdk-outputs.json
+
+      # --- Resolve the freshly-created bucket / distribution --------------
+      # `set -euo pipefail` + explicit emptiness checks prevent a missing
+      # output silently producing an `s3:///mfe-home`-style malformed target.
+      - name: Read stack outputs
+        id: outputs
+        working-directory: infrastructure
+        run: |
+          set -euo pipefail
+          STACK="Auspex40kPrEnv-${PR_NUMBER}"
+          BUCKET=$(jq -er ".\"${STACK}\".SiteBucketName" cdk-outputs.json)
+          DIST_ID=$(jq -er ".\"${STACK}\".DistributionId" cdk-outputs.json)
+          SITE_URL=$(jq -er ".\"${STACK}\".SiteUrl" cdk-outputs.json)
+          if [ -z "$BUCKET" ] || [ -z "$DIST_ID" ] || [ -z "$SITE_URL" ]; then
+            echo "::error::Failed to resolve stack outputs for ${STACK}"
+            cat cdk-outputs.json
+            exit 1
+          fi
+          echo "bucket=${BUCKET}" >> "$GITHUB_OUTPUT"
+          echo "distribution_id=${DIST_ID}" >> "$GITHUB_OUTPUT"
+          echo "site_url=${SITE_URL}" >> "$GITHUB_OUTPUT"
+
+      # --- Build the front-end --------------------------------------------
+      # `pnpm build` runs `vite build`, which sets NODE_ENV=production. The
+      # shell therefore resolves mfe-home's remoteEntry.js via the relative
+      # path `/mfe-home/assets/remoteEntry.js` on the SAME distribution.
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build all workspaces
+        run: pnpm build
+        env:
+          NODE_ENV: production
+
+      # --- Publish artifacts to the PR environment ------------------------
+      # mfe-home first (hashed assets), then the shell at the root. Mirrors
+      # the production pipeline's layout exactly.
+      - name: Sync build artifacts to S3
+        run: |
+          aws s3 sync apps/mfe-home/dist "s3://${{ steps.outputs.outputs.bucket }}/mfe-home" --delete
+          aws s3 sync apps/shell/dist "s3://${{ steps.outputs.outputs.bucket }}" --delete --exclude "mfe-home/*"
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ steps.outputs.outputs.distribution_id }}" \
+            --paths "/*"
+
+      # --- Report the preview URL on the PR -------------------------------
+      - name: Find existing preview comment
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ env.PR_NUMBER }}
+          comment-author: github-actions[bot]
+          body-includes: <!-- auspex40k-ephemeral-env -->
+
+      - name: Post / update preview comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ env.PR_NUMBER }}
+          edit-mode: replace
+          body: |
+            <!-- auspex40k-ephemeral-env -->
+            ### 40K Auspex preview environment
+
+            This PR is deployed to an ephemeral environment.
+
+            | | |
+            |---|---|
+            | Preview URL | ${{ steps.outputs.outputs.site_url }} |
+            | Commit | `${{ github.sha }}` |
+            | Updated | ${{ github.event.pull_request.updated_at }} |
+
+            The environment is destroyed automatically when this PR is closed or merged.

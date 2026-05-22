@@ -1,0 +1,83 @@
+name: PR Ephemeral Environment - Teardown
+
+# Destroys the preview environment when a pull request is closed (whether
+# it was merged or not).
+on:
+  pull_request:
+    types: [closed]
+
+# Serialise teardown against any in-flight deploy for the same PR so we
+# never destroy a stack mid-create. `cancel-in-progress: false` lets a
+# running deploy finish first, then teardown proceeds.
+concurrency:
+  group: pr-ephemeral-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+permissions:
+  id-token: write # required for AWS OIDC federation
+  contents: read # checkout
+  pull-requests: write # update the preview-URL comment
+
+env:
+  AWS_REGION: us-east-1
+  PR_NUMBER: ${{ github.event.pull_request.number }}
+
+jobs:
+  teardown:
+    name: Destroy PR preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable pnpm via corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.2.2 --activate
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Install CDK dependencies
+        working-directory: infrastructure
+        run: pnpm install --ignore-workspace --frozen-lockfile
+
+      # `cdk destroy` removes the CloudFront distribution and the S3 bucket.
+      # The bucket is `autoDeleteObjects: true`, so a CDK custom resource
+      # empties it before deletion. If the stack does not exist (e.g. the
+      # deploy never ran), `cdk destroy` is a harmless no-op.
+      - name: Destroy ephemeral CDK stack
+        working-directory: infrastructure
+        run: |
+          npx cdk destroy "Auspex40kPrEnv-${PR_NUMBER}" \
+            -c prNumber="${PR_NUMBER}" \
+            --force
+
+      - name: Find existing preview comment
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ env.PR_NUMBER }}
+          comment-author: github-actions[bot]
+          body-includes: <!-- auspex40k-ephemeral-env -->
+
+      - name: Update preview comment
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ env.PR_NUMBER }}
+          edit-mode: replace
+          body: |
+            <!-- auspex40k-ephemeral-env -->
+            ### 40K Auspex preview environment
+
+            The ephemeral environment for this PR has been **torn down**.
+            The CloudFront distribution and S3 bucket were deleted.
