@@ -48,17 +48,20 @@ jobs:
 
       - name: Install CDK dependencies
         working-directory: infrastructure
-        run: pnpm install --ignore-workspace --frozen-lockfile
+        run: pnpm install --ignore-workspace --frozen-lockfile --ignore-scripts
 
       # `cdk destroy` removes the CloudFront distribution and the S3 bucket.
       # The bucket is `autoDeleteObjects: true`, so a CDK custom resource
-      # empties it before deletion. If the stack does not exist (e.g. the
+      # empties it before deletion. If a stack does not exist (e.g. the
       # deploy never ran), `cdk destroy` is a harmless no-op.
-      - name: Destroy ephemeral CDK stack
+      - name: Destroy ephemeral CDK stacks
         working-directory: infrastructure
+        env:
+          USER_POOL_ID: ${{ vars.COGNITO_USER_POOL_ID }}
         run: |
-          npx cdk destroy "Auspex40kPrEnv-${PR_NUMBER}" \
+          npx cdk destroy "Auspex40kPrApi-${PR_NUMBER}" "Auspex40kPrEnv-${PR_NUMBER}" \
             -c prNumber="${PR_NUMBER}" \
+            -c userPoolId="${USER_POOL_ID}" \
             --force
 
       - name: Find existing preview comment

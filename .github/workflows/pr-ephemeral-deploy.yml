@@ -63,7 +63,7 @@ jobs:
         env:
           USER_POOL_ID: ${{ vars.COGNITO_USER_POOL_ID }}
         run: |
-          npx cdk deploy "Auspex40kPrEnv-${PR_NUMBER}" \
+          npx cdk deploy "Auspex40kPrEnv-${PR_NUMBER}" "Auspex40kPrApi-${PR_NUMBER}" \
             -c prNumber="${PR_NUMBER}" \
             -c userPoolId="${USER_POOL_ID}" \
             --require-approval never \
@@ -86,7 +86,7 @@ jobs:
           SITE_URL=$(jq -er ".\"${STACK}\".SiteUrl" cdk-outputs.json)
           USER_POOL_ID=$(jq -r ".\"${STACK}\".UserPoolId // empty" cdk-outputs.json)
           USER_POOL_CLIENT_ID=$(jq -r ".\"${STACK}\".UserPoolClientId // empty" cdk-outputs.json)
-          API_URL=$(jq -r ".\"${STACK}\".ApiUrl // empty" cdk-outputs.json)
+          API_URL=$(jq -r ".\"Auspex40kPrApi-${PR_NUMBER}\".ApiUrl // empty" cdk-outputs.json)
           if [ -z "$BUCKET" ] || [ -z "$DIST_ID" ] || [ -z "$SITE_URL" ]; then
             echo "::error::Failed to resolve stack outputs for ${STACK}"
             cat cdk-outputs.json
