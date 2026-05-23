@@ -281,6 +281,9 @@ importers:
 
   services/armies:
     dependencies:
+      '@40kauspex/lambda-utils':
+        specifier: workspace:*
+        version: link:../../packages/lambda-utils
       '@aws-sdk/client-dynamodb':
         specifier: ^3.717.0
         version: 3.1051.0
