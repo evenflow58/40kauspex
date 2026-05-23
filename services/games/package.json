@@ -11,6 +11,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@40kauspex/lambda-utils": "workspace:*",
     "@aws-sdk/client-dynamodb": "^3.717.0",
     "@aws-sdk/lib-dynamodb": "^3.717.0"
   },

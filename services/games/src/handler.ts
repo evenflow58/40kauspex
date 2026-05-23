@@ -4,7 +4,7 @@ import type {
 } from 'aws-lambda'
 import { GetCommand, QueryCommand } from '@aws-sdk/lib-dynamodb'
 import { ddb, TABLE_NAME } from './db'
-import { json, error } from './http'
+import { json, error } from '@40kauspex/lambda-utils'
 
 /**
  * Reference-data handler for the 40K Auspex companion app.
