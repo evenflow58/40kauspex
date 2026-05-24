@@ -70,6 +70,7 @@ export const handler = async (
   }
 }
 
+
 /** Map a metadata DynamoDB item to the army summary returned by the API. */
 function toArmySummary(item: Record<string, unknown>) {
   return {
