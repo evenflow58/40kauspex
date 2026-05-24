@@ -1,24 +1,17 @@
 {
-  "name": "@40kauspex/phase-guide-service",
+  "name": "@40kauspex/lambda-utils",
   "private": true,
   "version": "0.0.1",
   "type": "commonjs",
-  "main": "./dist/handler.js",
+  "main": "./src/index.ts",
   "scripts": {
-    "build": "tsc",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "dependencies": {
-    "@40kauspex/lambda-utils": "workspace:*",
-    "@aws-sdk/client-dynamodb": "^3.717.0",
-    "@aws-sdk/lib-dynamodb": "^3.717.0"
-  },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.145",
     "@types/node": "^22.10.0",
-    "aws-sdk-client-mock": "^4.1.0",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   }

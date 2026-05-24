@@ -11,7 +11,7 @@ import {
   QueryCommand,
 } from '@aws-sdk/lib-dynamodb'
 import { ddb, TABLE_NAME } from './db'
-import { json, error, noContent, getUserSub } from './http'
+import { json, error, noContent, getUserSub, parseBody } from '@40kauspex/lambda-utils'
 
 /** A unit as supplied by the client when creating or updating an army. */
 interface UnitInput {
@@ -70,6 +70,7 @@ export const handler = async (
   }
 }
 
+<<<<<<< HEAD
 /** Safely parse a JSON request body; returns null on absence or bad JSON. */
 function parseBody(body: string | undefined): Record<string, unknown> | null {
   if (!body) return null
@@ -83,6 +84,8 @@ function parseBody(body: string | undefined): Record<string, unknown> | null {
   }
 }
 
+=======
+>>>>>>> main
 /** Map a metadata DynamoDB item to the army summary returned by the API. */
 function toArmySummary(item: Record<string, unknown>) {
   return {
