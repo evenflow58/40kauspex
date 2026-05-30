@@ -122,7 +122,8 @@ jobs:
       - name: Sync build artifacts to S3
         run: |
           aws s3 sync apps/mfe-home/dist "s3://${{ steps.outputs.outputs.bucket }}/mfe-home" --delete
-          aws s3 sync apps/shell/dist "s3://${{ steps.outputs.outputs.bucket }}" --delete --exclude "mfe-home/*"
+          aws s3 sync apps/mfe-companion/dist "s3://${{ steps.outputs.outputs.bucket }}/mfe-companion" --delete
+          aws s3 sync apps/shell/dist "s3://${{ steps.outputs.outputs.bucket }}" --delete --exclude "mfe-home/*" --exclude "mfe-companion/*"
 
       # --- Generate and upload the runtime auth config --------------------
       # Renders auth-config.json from the deployed AuthStack outputs and
