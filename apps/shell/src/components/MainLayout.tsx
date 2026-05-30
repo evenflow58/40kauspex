@@ -1,61 +1,41 @@
 import React, { Suspense } from 'react'
-import { Routes, Route, NavLink } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { Button } from '@40kauspex/ui'
 import { useAuth } from '@40kauspex/auth'
 import { LogOut, RefreshCw } from 'lucide-react'
+import Nav from './Nav'
 
 // The federated remotes. Only resolvable from a built remote at runtime;
 // unit tests alias these imports to local stubs (see vitest.config.ts).
 const HomeApp = React.lazy(() => import('mfe_home/App'))
 const CompanionApp = React.lazy(() => import('mfe_companion/App'))
 
-/** Shared styling for a top-nav link, with an active-route treatment. */
-function navLinkClass({ isActive }: { isActive: boolean }): string {
-  return (
-    'text-sm font-medium transition-colors ' +
-    (isActive
-      ? 'text-foreground'
-      : 'text-muted-foreground hover:text-foreground')
-  )
+function RemoteLoading() {
+  return <p className="text-sm text-muted-foreground">Loading remote...</p>
 }
 
-/**
- * The protected main application surface, shown once `RequireAuth` passes.
- *
- * Holds the shell chrome (header with primary navigation + sign-out) and
- * routes between the federated micro-frontends:
- *
- *   /            mfe-home
- *   /companion*  mfe-companion (game selection, army builder, phase companion)
- *
- * Each remote is lazy-loaded inside a Suspense boundary.
- */
+// Remotes share the shell's <BrowserRouter> via the react-router-dom singleton
+// (vite.config.ts) — without this, nested <Routes> inside a remote would use
+// a different router context and path matching would break.
 export default function MainLayout() {
   const { user, signOut } = useAuth()
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border bg-card">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-8 py-6">
-          <div className="flex items-center gap-8">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-6 sm:px-8">
+          <div className="flex items-center gap-6">
             <div>
               <h1 className="text-2xl font-semibold tracking-tight">
                 40K Auspex
               </h1>
               <p className="mt-1 text-sm text-muted-foreground">Shell</p>
             </div>
-            <nav className="flex items-center gap-4">
-              <NavLink to="/" end className={navLinkClass}>
-                Home
-              </NavLink>
-              <NavLink to="/companion" className={navLinkClass}>
-                Companion
-              </NavLink>
-            </nav>
+            <Nav />
           </div>
           <div className="flex items-center gap-4">
             {user && (
-              <span className="text-sm text-muted-foreground">
+              <span className="hidden text-sm text-muted-foreground sm:inline">
                 {user.name ?? user.email}
               </span>
             )}
@@ -65,25 +45,20 @@ export default function MainLayout() {
               onClick={() => window.location.reload()}
             >
               <RefreshCw />
-              Refresh
+              <span className="sr-only sm:not-sr-only">Refresh</span>
             </Button>
             <Button variant="ghost" size="sm" onClick={signOut}>
               <LogOut />
-              Sign out
+              <span className="sr-only sm:not-sr-only">Sign out</span>
             </Button>
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-5xl px-8 py-8">
-        <Suspense
-          fallback={
-            <p className="text-sm text-muted-foreground">Loading remote...</p>
-          }
-        >
+      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-8">
+        <Suspense fallback={<RemoteLoading />}>
           <Routes>
-            {/* The companion remote owns every `/companion/*` path. */}
-            <Route path="/companion/*" element={<CompanionApp />} />
-            <Route path="*" element={<HomeApp />} />
+            <Route index element={<HomeApp />} />
+            <Route path="companion/*" element={<CompanionApp />} />
           </Routes>
         </Suspense>
       </main>

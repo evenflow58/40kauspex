@@ -17,7 +17,10 @@ export default defineConfig({
         react: { singleton: true, requiredVersion: '^18.3.1' },
         'react-dom': { singleton: true, requiredVersion: '^18.3.1' },
         // Match the shell's shared modules exactly so this remote consumes
-        // the host's single auth context instead of bundling its own.
+        // the host's single router and auth context instead of bundling its
+        // own. The router singleton lets this remote's <Routes> participate
+        // in the shell's <BrowserRouter>.
+        'react-router-dom': { singleton: true, requiredVersion: '^7.15.1' },
         '@40kauspex/auth': { singleton: true },
         'oidc-client-ts': { singleton: true },
         'react-oidc-context': { singleton: true },

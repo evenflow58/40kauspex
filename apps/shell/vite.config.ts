@@ -27,8 +27,12 @@ export default defineConfig({
       shared: {
         react: { singleton: true, requiredVersion: '^18.3.1' },
         'react-dom': { singleton: true, requiredVersion: '^18.3.1' },
-        // Auth must be a singleton so the shell and mfe-home share ONE auth
-        // context — mfe-home reads the session the shell established.
+        // The router must be a singleton so remotes mount their <Routes>
+        // inside the shell's <BrowserRouter>. Without this each remote would
+        // bundle its own copy and lose access to the shell's router context.
+        'react-router-dom': { singleton: true, requiredVersion: '^7.15.1' },
+        // Auth must be a singleton so the shell and remotes share ONE auth
+        // context — remotes read the session the shell established.
         // oidc-client-ts / react-oidc-context back the auth context, so they
         // are shared too; without this they would each get a separate
         // instance and the contexts would not match.

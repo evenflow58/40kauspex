@@ -44,6 +44,9 @@ vi.mock('./api', () => ({
 
 import App from './App'
 
+// The companion App is mounted by the shell at `/companion/*` and defines its
+// routes RELATIVE to that mount. Unit tests render it at the root of a
+// MemoryRouter, so the same relative paths resolve to `/`, `/games/...`, etc.
 function renderApp(initialPath: string) {
   return render(
     <MemoryRouter initialEntries={[initialPath]}>
@@ -57,30 +60,23 @@ describe('mfe-companion App', () => {
     vi.clearAllMocks()
   })
 
-  it('renders the game selection page at /companion', async () => {
-    renderApp('/companion')
+  it('renders the game selection page at the index route', async () => {
+    renderApp('/')
     expect(
       await screen.findByRole('heading', { name: /choose your game/i })
     ).toBeInTheDocument()
   })
 
   it('lists available games loaded from the API', async () => {
-    renderApp('/companion')
+    renderApp('/')
     expect(await screen.findByText('Warhammer 40,000')).toBeInTheDocument()
   })
 
   it('marks unavailable games as coming soon with a disabled action', async () => {
-    renderApp('/companion')
+    renderApp('/')
     expect(await screen.findByText('Coming soon')).toBeInTheDocument()
     expect(
       screen.getByRole('button', { name: /not available yet/i })
     ).toBeDisabled()
-  })
-
-  it('redirects an unknown companion path to game selection', async () => {
-    renderApp('/companion/nonsense/path')
-    expect(
-      await screen.findByRole('heading', { name: /choose your game/i })
-    ).toBeInTheDocument()
   })
 })

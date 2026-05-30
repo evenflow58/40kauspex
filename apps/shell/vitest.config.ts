@@ -3,12 +3,12 @@ import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 
 // Standalone config for tests. The production vite.config.ts pulls in the
-// Module Federation plugin, whose `mfe_home/App` remote is only resolvable
-// from a built remote — not in a unit-test run.
+// Module Federation plugin, whose `mfe_home/App` and `mfe_companion/App`
+// remotes are only resolvable from a built remote — not in a unit-test run.
 //
 // Vite's static import-analysis resolves imports BEFORE vi.mock() takes effect,
-// so `mfe_home/App` is aliased to a local stub here. Tests can still override
-// the rendered output with vi.mock('mfe_home/App', ...).
+// so each remote module is aliased to a local stub here. Tests can still
+// override the rendered output with vi.mock('mfe_home/App', ...) etc.
 export default defineConfig({
   plugins: [react()],
   resolve: {
