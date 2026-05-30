@@ -23,6 +23,11 @@ import type {
 
 let apiUrlPromise: Promise<string> | null = null
 
+/** @internal Override the API base URL — for contract tests only. */
+export function _overrideApiUrl(url: string): void {
+  apiUrlPromise = Promise.resolve(url)
+}
+
 /** Fetch and cache the API base URL from `/auth-config.json`. */
 function getApiUrl(): Promise<string> {
   if (!apiUrlPromise) {

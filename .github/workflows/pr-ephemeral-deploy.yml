@@ -111,6 +111,10 @@ jobs:
       - name: Run unit tests
         run: pnpm test --run
 
+      # Consumer tests generate pact files; provider tests verify against them.
+      - name: Run contract tests
+        run: pnpm test:pact
+
       - name: Build all workspaces
         run: pnpm build
         env:

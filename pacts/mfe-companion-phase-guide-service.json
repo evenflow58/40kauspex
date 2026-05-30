@@ -1,0 +1,215 @@
+{
+  "consumer": {
+    "name": "mfe-companion"
+  },
+  "interactions": [
+    {
+      "description": "a request for phase guidance for an army",
+      "providerStates": [
+        {
+          "name": "user pact-test-sub owns army army-1 with infantry units"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/phase-guide/army-1"
+      },
+      "response": {
+        "body": {
+          "armyId": "army-1",
+          "armyName": "Green Tide",
+          "factionName": "Orks",
+          "gameId": "wh40k-10e",
+          "phases": [
+            {
+              "description": "Issue orders.",
+              "keyActions": [
+                "Issue Strategic Ploy"
+              ],
+              "name": "Command Phase",
+              "order": 1,
+              "relevantKeywords": [
+                "INFANTRY"
+              ],
+              "units": [
+                {
+                  "entryId": "entry-1",
+                  "matchedKeywords": [
+                    "INFANTRY"
+                  ],
+                  "unitName": "Boyz"
+                }
+              ]
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.armyId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.armyName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.factionName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.gameId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.phases": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.phases[*].description": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.phases[*].keyActions": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.phases[*].keyActions[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.phases[*].name": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.phases[*].order": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.phases[*].relevantKeywords": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.phases[*].relevantKeywords[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.phases[*].units": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.phases[*].units[*].entryId": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.phases[*].units[*].matchedKeywords": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.phases[*].units[*].matchedKeywords[*]": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.phases[*].units[*].unitName": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "12.5.2"
+    },
+    "pactRust": {
+      "ffi": "0.4.20",
+      "models": "1.2.0"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "phase-guide-service"
+  }
+}
