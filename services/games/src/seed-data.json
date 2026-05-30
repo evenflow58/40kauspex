@@ -24,7 +24,7 @@
           "Take Battle-shock tests for units below half-strength",
           "Use Command-phase abilities and Stratagems"
         ],
-        "relevantKeywords": ["LEADER", "CHARACTER"]
+        "relevantKeywords": ["LEADER", "CHARACTER", "WARRIOR STRATEGIST"]
       },
       {
         "order": 2,
@@ -35,7 +35,7 @@
           "Set up reinforcement units arriving from reserves",
           "Embark and disembark from transports"
         ],
-        "relevantKeywords": ["FLY", "INFANTRY", "TRANSPORT", "DEEP STRIKE"]
+        "relevantKeywords": ["FLY", "INFANTRY", "TRANSPORT", "DEEP STRIKE", "INDOMITABLE SPIRIT"]
       },
       {
         "order": 3,
@@ -46,7 +46,7 @@
           "Choose valid targets and resolve ranged attacks",
           "Apply weapon abilities such as Rapid Fire and Blast"
         ],
-        "relevantKeywords": ["RAPID FIRE", "HEAVY", "ASSAULT", "PISTOL", "BLAST", "TORRENT"]
+        "relevantKeywords": ["RAPID FIRE", "HEAVY", "ASSAULT", "PISTOL", "BLAST", "TORRENT", "CHAMPION OF ORDER", "GUIDANCE OF THE ANCIENTS", "PERSONAL TELEPORTERS", "SANCTITY OF PURPOSE", "RIGHTEOUS PERSECUTION"]
       },
       {
         "order": 4,
@@ -57,7 +57,7 @@
           "Roll 2D6 and make the charge move into Engagement Range",
           "Resolve Heroic Interventions"
         ],
-        "relevantKeywords": ["CAVALRY", "MONSTER", "VEHICLE"]
+        "relevantKeywords": ["CAVALRY", "MONSTER", "VEHICLE", "ATTUNED ONSLAUGHT", "INDOMITABLE SPIRIT"]
       },
       {
         "order": 5,
@@ -68,7 +68,7 @@
           "Pile In before attacking and Consolidate afterwards",
           "Resolve melee weapon abilities"
         ],
-        "relevantKeywords": ["FIGHTS FIRST", "FIGHTS LAST", "LETHAL HITS", "SUSTAINED HITS"]
+        "relevantKeywords": ["FIGHTS FIRST", "FIGHTS LAST", "LETHAL HITS", "SUSTAINED HITS", "GATE OF INFINITY", "FORCE EDGE", "HAMMER AFLAME", "SANCTITY OF PURPOSE"]
       }
     ]
   },
@@ -251,7 +251,7 @@
         "unitId": "gk-grand-master",
         "name": "Grand Master",
         "battlefieldRole": "Character",
-        "keywords": ["CHARACTER", "LEADER", "PSYKER", "TERMINATOR", "RAPID FIRE"],
+        "keywords": ["CHARACTER", "LEADER", "WARRIOR STRATEGIST"],
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
@@ -261,37 +261,37 @@
         "unitId": "gk-grand-master-voldus",
         "name": "Grand Master Voldus",
         "battlefieldRole": "Character",
-        "keywords": ["CHARACTER", "LEADER", "EPIC HERO", "PSYKER", "TERMINATOR", "RAPID FIRE"],
+        "keywords": ["CHARACTER", "LEADER", "HAMMER AFLAME"],
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Sanctuary: while leading, subtract 1 from Hit rolls targeting his unit; Hammer Aflame deals mortal wounds to enemies in Engagement Range."
+        "briefAbility": "Hammer Aflame: in the Fight phase, roll a D6 for each enemy unit in Engagement Range — on a 4+ it suffers D3 mortal wounds (D3+3 on a 6)."
       },
       {
         "unitId": "gk-castellan-crowe",
         "name": "Castellan Crowe",
         "battlefieldRole": "Character",
-        "keywords": ["CHARACTER", "LEADER", "EPIC HERO", "PSYKER", "RAPID FIRE"],
+        "keywords": ["CHARACTER", "LEADER", "CHAMPION OF ORDER"],
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Champion of the Order: while leading Purifiers, add 1 to Attacks of Purifying Flame weapons; Foresight re-rolls Hit rolls against Characters."
+        "briefAbility": "Champion of Order: while leading Purifiers, add 1 to Attacks of Purifying Flame weapons in the unit; Foresight re-rolls Hit rolls against Characters."
       },
       {
         "unitId": "gk-venerable-dreadnought",
         "name": "Venerable Dreadnought",
         "battlefieldRole": "Character",
-        "keywords": ["VEHICLE", "WALKER", "CHARACTER", "PSYKER", "HEAVY"],
+        "keywords": ["VEHICLE", "CHARACTER", "GUIDANCE OF THE ANCIENTS"],
         "movement": 8,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Guidance of the Ancients: after shooting, add 1 to Hit rolls for all Grey Knights attacking the same enemy unit until end of phase."
+        "briefAbility": "Guidance of the Ancients: after this unit shoots, add 1 to Hit rolls for all Grey Knights targeting the same enemy unit until end of phase."
       },
       {
         "unitId": "gk-strike-squad",
         "name": "Strike Squad",
         "battlefieldRole": "Battleline",
-        "keywords": ["INFANTRY", "BATTLELINE", "PSYKER", "DEEP STRIKE", "RAPID FIRE", "TORRENT"],
+        "keywords": ["INFANTRY", "DEEP STRIKE", "GATE OF INFINITY"],
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
@@ -301,7 +301,7 @@
         "unitId": "gk-brotherhood-terminator-squad",
         "name": "Brotherhood Terminator Squad",
         "battlefieldRole": "Battleline",
-        "keywords": ["INFANTRY", "BATTLELINE", "PSYKER", "TERMINATOR", "DEEP STRIKE", "RAPID FIRE"],
+        "keywords": ["INFANTRY", "TERMINATOR", "DEEP STRIKE", "GATE OF INFINITY", "FORCE EDGE"],
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
@@ -311,27 +311,27 @@
         "unitId": "gk-interceptor-squad",
         "name": "Interceptor Squad",
         "battlefieldRole": "Infantry",
-        "keywords": ["INFANTRY", "PSYKER", "FLY", "DEEP STRIKE", "RAPID FIRE", "TORRENT", "ASSAULT"],
+        "keywords": ["INFANTRY", "FLY", "DEEP STRIKE", "GATE OF INFINITY", "PERSONAL TELEPORTERS"],
         "movement": 12,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Personal Teleporters: after shooting, can make an additional 6\" Normal Move if not in Engagement Range with any enemy unit."
+        "briefAbility": "Personal Teleporters: after this unit shoots, it can make an additional 6\" Normal Move if not in Engagement Range with any enemy unit."
       },
       {
         "unitId": "gk-purifier-squad",
         "name": "Purifier Squad",
         "battlefieldRole": "Infantry",
-        "keywords": ["INFANTRY", "PSYKER", "DEEP STRIKE", "TORRENT", "ASSAULT"],
+        "keywords": ["INFANTRY", "DEEP STRIKE", "GATE OF INFINITY", "SANCTITY OF PURPOSE"],
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Sanctity of Purpose: re-roll Wound rolls of 1, or re-roll all Wound rolls when attacking a unit on or near an objective marker."
+        "briefAbility": "Sanctity of Purpose: re-roll Wound rolls of 1; re-roll all Wound rolls when attacking a unit on or near an objective marker."
       },
       {
         "unitId": "gk-purgation-squad",
         "name": "Purgation Squad",
         "battlefieldRole": "Infantry",
-        "keywords": ["INFANTRY", "PSYKER", "DEEP STRIKE", "HEAVY", "BLAST"],
+        "keywords": ["INFANTRY", "DEEP STRIKE", "GATE OF INFINITY", "RIGHTEOUS PERSECUTION"],
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
@@ -341,21 +341,21 @@
         "unitId": "gk-paladin-squad",
         "name": "Paladin Squad",
         "battlefieldRole": "Infantry",
-        "keywords": ["INFANTRY", "PSYKER", "TERMINATOR", "DEEP STRIKE", "RAPID FIRE"],
+        "keywords": ["INFANTRY", "TERMINATOR", "DEEP STRIKE", "GATE OF INFINITY", "ATTUNED ONSLAUGHT"],
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Attuned Onslaught: after a Charge move, add 1 to the Damage characteristic of all melee weapons in this unit until end of turn."
+        "briefAbility": "Attuned Onslaught: after this unit makes a Charge move, add 1 to the Damage characteristic of all its melee weapons until end of turn."
       },
       {
         "unitId": "gk-nemesis-dreadknight",
         "name": "Nemesis Dreadknight",
         "battlefieldRole": "Vehicle",
-        "keywords": ["VEHICLE", "WALKER", "PSYKER", "DEEP STRIKE", "HEAVY"],
+        "keywords": ["VEHICLE", "WALKER", "DEEP STRIKE", "GATE OF INFINITY", "INDOMITABLE SPIRIT"],
         "movement": 8,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Indomitable Spirit: can shoot and charge after Advancing; Deadly Demise D3 inflicts mortal wounds on nearby units when destroyed."
+        "briefAbility": "Indomitable Spirit: this unit can Advance and still shoot and charge in the same turn."
       }
     ],
     "orks": [
