@@ -5,5 +5,5 @@
   "redirectUri": "http://localhost:3000/auth/callback",
   "postLogoutRedirectUri": "http://localhost:3000/",
   "scopes": ["openid", "email", "profile"],
-  "apiUrl": ""
+  "apiUrl": "http://localhost:3003"
 }
