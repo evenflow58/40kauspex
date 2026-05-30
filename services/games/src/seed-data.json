@@ -46,7 +46,7 @@
           "Choose valid targets and resolve ranged attacks",
           "Apply weapon abilities such as Rapid Fire and Blast"
         ],
-        "relevantKeywords": ["RAPID FIRE", "HEAVY", "ASSAULT", "PISTOL", "BLAST", "TORRENT", "CHAMPION OF ORDER", "GUIDANCE OF THE ANCIENTS", "PERSONAL TELEPORTERS", "SANCTITY OF PURPOSE", "RIGHTEOUS PERSECUTION"]
+        "relevantKeywords": ["RAPID FIRE", "HEAVY", "ASSAULT", "PISTOL", "BLAST", "TORRENT", "CHAMPION OF THE ORDER OF PURIFIERS", "GUIDANCE OF THE ANCIENTS", "PERSONAL TELEPORTERS", "SANCTITY OF PURPOSE", "RIGHTEOUS PERSECUTION"]
       },
       {
         "order": 4,
@@ -271,11 +271,11 @@
         "unitId": "gk-castellan-crowe",
         "name": "Castellan Crowe",
         "battlefieldRole": "Character",
-        "keywords": ["CHARACTER", "LEADER", "CHAMPION OF ORDER"],
+        "keywords": ["CHAMPION OF THE ORDER OF PURIFIERS"],
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Champion of Order: while leading Purifiers, add 1 to Attacks of Purifying Flame weapons in the unit; Foresight re-rolls Hit rolls against Characters."
+        "briefAbility": "Champion of the Order of Purifiers: while leading a Purifier Squad, add 1 to the Attacks of Purifying Flame weapons in the unit; Foresight re-rolls Hit rolls against Characters."
       },
       {
         "unitId": "gk-venerable-dreadnought",
