@@ -4,6 +4,8 @@
 // remote is only resolvable from a built remote. Vite's static import-analysis
 // runs BEFORE vi.mock() takes effect, so it needs a real module to resolve to.
 // `apps/shell/vitest.config.ts` aliases `mfe_companion/App` to this file.
+// Tests that care about the remote's rendered output override it further with
+// vi.mock().
 export default function MfeCompanionStub() {
   return <div data-testid="remote-companion">Mocked remote companion</div>
 }

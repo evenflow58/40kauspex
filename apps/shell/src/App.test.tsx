@@ -2,10 +2,11 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-// The shell lazy-loads the federated remote `mfe_home/App`, which is only
-// resolvable from a built remote at runtime. `vitest.config.ts` aliases that
-// import to `src/test/mfe-home-stub.tsx` so the shell can be unit-tested in
-// isolation; the stub renders an element with data-testid="remote-home".
+// The shell lazy-loads the federated remotes `mfe_home/App` and
+// `mfe_companion/App`, which are only resolvable from a built remote at
+// runtime. `vitest.config.ts` aliases each import to a local stub so the shell
+// can be unit-tested in isolation; the stubs render elements with
+// `data-testid="remote-home"` and `data-testid="remote-companion"`.
 //
 // `App` also depends on `@40kauspex/auth` for `AuthProvider` (fetches
 // auth-config.json over the network) and `RequireAuth` (gates routes). Both
@@ -78,14 +79,49 @@ describe('shell App', () => {
     ).toBeInTheDocument()
   })
 
-  it('eventually renders the federated remote inside the Suspense boundary', async () => {
+  it('renders the primary nav with Home and Companion links', () => {
     renderApp('/')
-    // React.lazy resolves asynchronously; findBy* waits for it.
+    const nav = screen.getByRole('navigation', { name: /primary/i })
+    expect(nav).toBeInTheDocument()
+    // sr-only labels are still queryable by accessible name.
+    expect(screen.getByRole('link', { name: /home/i })).toHaveAttribute(
+      'href',
+      '/'
+    )
+    expect(screen.getByRole('link', { name: /companion/i })).toHaveAttribute(
+      'href',
+      '/companion'
+    )
+  })
+
+  it('marks the Home link as the current page at /', () => {
+    renderApp('/')
+    const homeLink = screen.getByRole('link', { name: /home/i })
+    expect(homeLink).toHaveAttribute('aria-current', 'page')
+    const companionLink = screen.getByRole('link', { name: /companion/i })
+    expect(companionLink).not.toHaveAttribute('aria-current', 'page')
+  })
+
+  it('marks the Companion link as the current page under /companion', () => {
+    renderApp('/companion')
+    const companionLink = screen.getByRole('link', { name: /companion/i })
+    expect(companionLink).toHaveAttribute('aria-current', 'page')
+    const homeLink = screen.getByRole('link', { name: /home/i })
+    expect(homeLink).not.toHaveAttribute('aria-current', 'page')
+  })
+
+  it('eventually renders the federated home remote at /', async () => {
+    renderApp('/')
     expect(await screen.findByTestId('remote-home')).toBeInTheDocument()
   })
 
-  it('renders the companion remote on the /companion route', async () => {
+  it('eventually renders the federated companion remote at /companion', async () => {
     renderApp('/companion')
+    expect(await screen.findByTestId('remote-companion')).toBeInTheDocument()
+  })
+
+  it('keeps rendering the companion remote at a nested /companion path', async () => {
+    renderApp('/companion/games/warhammer-40k/army')
     expect(await screen.findByTestId('remote-companion')).toBeInTheDocument()
   })
 

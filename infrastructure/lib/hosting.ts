@@ -9,8 +9,9 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
  *
  * Layout (single private S3 bucket, single CloudFront distribution):
  *
- *   s3://<bucket>/                  -> apps/shell/dist        (served at /)
- *   s3://<bucket>/mfe-home/         -> apps/mfe-home/dist      (served at /mfe-home/*)
+ *   s3://<bucket>/                  -> apps/shell/dist          (served at /)
+ *   s3://<bucket>/mfe-home/         -> apps/mfe-home/dist       (served at /mfe-home/*)
+ *   s3://<bucket>/mfe-companion/    -> apps/mfe-companion/dist  (served at /mfe-companion/*)
  *
  * The shell is an SPA, so the default behaviour rewrites 403/404 to
  * /index.html. The `/mfe-home/*` behaviour deliberately does NOT rewrite,
@@ -69,7 +70,7 @@ export class Hosting extends Construct {
     );
 
     this.distribution = new cloudfront.Distribution(this, 'Distribution', {
-      comment: '40K Auspex shell + mfe-home',
+      comment: '40K Auspex shell + mfe-home + mfe-companion',
       defaultRootObject: 'index.html',
       priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
       minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
@@ -84,11 +85,19 @@ export class Hosting extends Construct {
         compress: true,
       },
       additionalBehaviors: {
-        // mfe-home assets. No SPA rewrite here — remoteEntry.js and its
-        // federation chunks must resolve as real files or 404 honestly.
-        // CORS_S3_ORIGIN response headers let the shell load the remote
-        // even though it is the same origin (harmless and future-proof).
+        // MFE remote assets. No SPA rewrite — remoteEntry.js and federation
+        // chunks must resolve as real files or 404 honestly.
         'mfe-home/*': {
+          origin,
+          viewerProtocolPolicy:
+            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+          cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+          responseHeadersPolicy:
+            cloudfront.ResponseHeadersPolicy.CORS_ALLOW_ALL_ORIGINS,
+          compress: true,
+        },
+        'mfe-companion/*': {
           origin,
           viewerProtocolPolicy:
             cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
