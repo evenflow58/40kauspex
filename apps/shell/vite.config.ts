@@ -4,10 +4,15 @@ import tailwindcss from '@tailwindcss/vite'
 import federation from '@originjs/vite-plugin-federation'
 
 // vite build always sets NODE_ENV=production; vite dev/preview sets development.
-const mfeHomeUrl =
-  process.env.NODE_ENV === 'production'
-    ? '/mfe-home/assets/remoteEntry.js'
-    : 'http://localhost:3001/assets/remoteEntry.js'
+const isProd = process.env.NODE_ENV === 'production'
+
+const mfeHomeUrl = isProd
+  ? '/mfe-home/assets/remoteEntry.js'
+  : 'http://localhost:3001/assets/remoteEntry.js'
+
+const mfeCompanionUrl = isProd
+  ? '/mfe-companion/assets/remoteEntry.js'
+  : 'http://localhost:3002/assets/remoteEntry.js'
 
 export default defineConfig({
   plugins: [
@@ -17,6 +22,7 @@ export default defineConfig({
       name: 'shell',
       remotes: {
         mfe_home: mfeHomeUrl,
+        mfe_companion: mfeCompanionUrl,
       },
       shared: {
         react: { singleton: true, requiredVersion: '^18.3.1' },
