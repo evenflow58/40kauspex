@@ -24,7 +24,7 @@
           "Take Battle-shock tests for units below half-strength",
           "Use Command-phase abilities and Stratagems"
         ],
-        "relevantKeywords": ["LEADER", "CHARACTER", "WARRIOR STRATEGIST"]
+        "relevantKeywords": ["LEADER", "CHARACTER", "WARRIOR STRATEGIST", "SANCTIFYING RITUAL"]
       },
       {
         "order": 2,
@@ -35,7 +35,7 @@
           "Set up reinforcement units arriving from reserves",
           "Embark and disembark from transports"
         ],
-        "relevantKeywords": ["FLY", "INFANTRY", "TRANSPORT", "DEEP STRIKE", "INDOMITABLE SPIRIT"]
+        "relevantKeywords": ["FLY", "INFANTRY", "TRANSPORT", "DEEP STRIKE"]
       },
       {
         "order": 3,
@@ -46,7 +46,7 @@
           "Choose valid targets and resolve ranged attacks",
           "Apply weapon abilities such as Rapid Fire and Blast"
         ],
-        "relevantKeywords": ["RAPID FIRE", "HEAVY", "ASSAULT", "PISTOL", "BLAST", "TORRENT", "CHAMPION OF THE ORDER OF PURIFIERS", "GUIDANCE OF THE ANCIENTS", "PERSONAL TELEPORTERS", "SANCTITY OF PURPOSE", "RIGHTEOUS PERSECUTION"]
+        "relevantKeywords": ["RAPID FIRE", "HEAVY", "ASSAULT", "PISTOL", "BLAST", "TORRENT", "CHAMPION OF THE ORDER OF PURIFIERS", "GUIDANCE OF THE ANCIENTS", "PERSONAL TELEPORTERS", "SANCTITY OF PURPOSE", "RIGHTEOUS PERSECUTION", "INDOMITABLE SPIRIT"]
       },
       {
         "order": 4,
@@ -68,7 +68,7 @@
           "Pile In before attacking and Consolidate afterwards",
           "Resolve melee weapon abilities"
         ],
-        "relevantKeywords": ["FIGHTS FIRST", "FIGHTS LAST", "LETHAL HITS", "SUSTAINED HITS", "GATE OF INFINITY", "FORCE EDGE", "HAMMER AFLAME", "SANCTITY OF PURPOSE"]
+        "relevantKeywords": ["FIGHTS FIRST", "FIGHTS LAST", "LETHAL HITS", "SUSTAINED HITS", "GATE OF INFINITY", "FORCE EDGE", "HAMMER AFLAME", "SANCTITY OF PURPOSE", "MIGHT OF TITAN"]
       }
     ]
   },
@@ -251,21 +251,21 @@
         "unitId": "gk-grand-master",
         "name": "Grand Master",
         "battlefieldRole": "Character",
-        "keywords": ["CHARACTER", "LEADER", "WARRIOR STRATEGIST"],
+        "keywords": ["WARRIOR STRATEGIST", "MIGHT OF TITAN", "GATE OF INFINITY"],
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Warrior Strategist: once per battle round, reduce the CP cost of one Stratagem used on this unit by 1."
+        "briefAbility": "Warrior Strategist: once per battle round, reduce the CP cost of one Stratagem by 1; Might of Titan: once per battle at the start of the Fight phase, add 3 to Attacks and Strength of all melee weapons until end of phase."
       },
       {
         "unitId": "gk-grand-master-voldus",
         "name": "Grand Master Voldus",
         "battlefieldRole": "Character",
-        "keywords": ["CHARACTER", "LEADER", "HAMMER AFLAME"],
+        "keywords": ["HAMMER AFLAME", "GATE OF INFINITY"],
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Hammer Aflame: in the Fight phase, roll a D6 for each enemy unit in Engagement Range — on a 4+ it suffers D3 mortal wounds (D3+3 on a 6)."
+        "briefAbility": "Hammer Aflame: when selected to fight, roll D6 per enemy unit in Engagement Range — on 2-3 deal 1 mortal wound, on 4-5 deal D3, on a 6 deal D3+3."
       },
       {
         "unitId": "gk-castellan-crowe",
@@ -281,7 +281,7 @@
         "unitId": "gk-venerable-dreadnought",
         "name": "Venerable Dreadnought",
         "battlefieldRole": "Character",
-        "keywords": ["VEHICLE", "CHARACTER", "GUIDANCE OF THE ANCIENTS"],
+        "keywords": ["DEEP STRIKE", "GUIDANCE OF THE ANCIENTS", "GATE OF INFINITY"],
         "movement": 8,
         "hasRanged": true,
         "hasMelee": true,
@@ -291,17 +291,17 @@
         "unitId": "gk-strike-squad",
         "name": "Strike Squad",
         "battlefieldRole": "Battleline",
-        "keywords": ["INFANTRY", "DEEP STRIKE", "GATE OF INFINITY"],
+        "keywords": ["INFANTRY", "DEEP STRIKE", "SANCTIFYING RITUAL", "GATE OF INFINITY"],
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Gate of Infinity: at the end of the opponent's Fight phase, remove this unit from the battlefield and place it into Strategic Reserves."
+        "briefAbility": "Sanctifying Ritual: perform a psychic action to maintain control of an objective marker even when the enemy has equal or greater Objective Control."
       },
       {
         "unitId": "gk-brotherhood-terminator-squad",
         "name": "Brotherhood Terminator Squad",
         "battlefieldRole": "Battleline",
-        "keywords": ["INFANTRY", "TERMINATOR", "DEEP STRIKE", "GATE OF INFINITY", "FORCE EDGE"],
+        "keywords": ["INFANTRY", "DEEP STRIKE", "GATE OF INFINITY", "FORCE EDGE"],
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
@@ -341,7 +341,7 @@
         "unitId": "gk-paladin-squad",
         "name": "Paladin Squad",
         "battlefieldRole": "Infantry",
-        "keywords": ["INFANTRY", "TERMINATOR", "DEEP STRIKE", "GATE OF INFINITY", "ATTUNED ONSLAUGHT"],
+        "keywords": ["INFANTRY", "DEEP STRIKE", "GATE OF INFINITY", "ATTUNED ONSLAUGHT"],
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
@@ -351,7 +351,7 @@
         "unitId": "gk-nemesis-dreadknight",
         "name": "Nemesis Dreadknight",
         "battlefieldRole": "Vehicle",
-        "keywords": ["VEHICLE", "WALKER", "DEEP STRIKE", "GATE OF INFINITY", "INDOMITABLE SPIRIT"],
+        "keywords": ["VEHICLE", "DEEP STRIKE", "GATE OF INFINITY", "INDOMITABLE SPIRIT"],
         "movement": 8,
         "hasRanged": true,
         "hasMelee": true,
