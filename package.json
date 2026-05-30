@@ -9,7 +9,8 @@
     "typecheck": "turbo typecheck",
     "test": "turbo test --",
     "local-api": "tsx services/local-dev/server.ts",
-    "local-api:seed": "tsx services/local-dev/seed.ts"
+    "local-api:seed": "tsx services/local-dev/seed.ts",
+    "test:pact": "pnpm --filter @40kauspex/mfe-companion test:pact && pnpm --filter @40kauspex/games-service test:pact && pnpm --filter @40kauspex/armies-service test:pact && pnpm --filter @40kauspex/phase-guide-service test:pact"
   },
   "devDependencies": {
     "tsx": "^4.19.2",

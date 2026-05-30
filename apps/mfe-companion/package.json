@@ -10,7 +10,8 @@
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:pact": "vitest run --config vitest.pact.config.ts"
   },
   "dependencies": {
     "@40kauspex/auth": "workspace:*",
@@ -35,6 +36,7 @@
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.2",
     "vite": "^6.0.7",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "@pact-foundation/pact": "^12.0.0"
   }
 }
