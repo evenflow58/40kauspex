@@ -76,6 +76,7 @@
     "warhammer-40k": [
       { "factionId": "space-marines", "name": "Space Marines" },
       { "factionId": "chaos-space-marines", "name": "Chaos Space Marines" },
+      { "factionId": "grey-knights", "name": "Grey Knights" },
       { "factionId": "orks", "name": "Orks" },
       { "factionId": "necrons", "name": "Necrons" }
     ]
@@ -243,6 +244,118 @@
         "hasRanged": true,
         "hasMelee": true,
         "briefAbility": "Fleshmetal Guns: their weapon profile changes each Shooting Phase."
+      }
+    ],
+    "grey-knights": [
+      {
+        "unitId": "gk-grand-master",
+        "name": "Grand Master",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "PSYKER", "TERMINATOR", "DEEP STRIKE", "GRENADES"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Warrior Strategist: once per battle round, reduce the CP cost of one Stratagem used on this unit by 1."
+      },
+      {
+        "unitId": "gk-grand-master-voldus",
+        "name": "Grand Master Voldus",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "EPIC HERO", "PSYKER", "TERMINATOR", "DEEP STRIKE", "GRENADES"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Sanctuary: while leading, subtract 1 from Hit rolls targeting his unit; Hammer Aflame deals mortal wounds to enemies in Engagement Range."
+      },
+      {
+        "unitId": "gk-castellan-crowe",
+        "name": "Castellan Crowe",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "EPIC HERO", "PSYKER", "DEEP STRIKE", "GRENADES"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Champion of the Order: while leading Purifiers, add 1 to Attacks of Purifying Flame weapons; Foresight re-rolls Hit rolls against Characters."
+      },
+      {
+        "unitId": "gk-venerable-dreadnought",
+        "name": "Venerable Dreadnought",
+        "battlefieldRole": "Character",
+        "keywords": ["VEHICLE", "WALKER", "CHARACTER", "PSYKER", "SMOKE", "DEEP STRIKE"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Guidance of the Ancients: after shooting, add 1 to Hit rolls for all Grey Knights attacking the same enemy unit until end of phase."
+      },
+      {
+        "unitId": "gk-strike-squad",
+        "name": "Strike Squad",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "BATTLELINE", "PSYKER", "DEEP STRIKE", "GRENADES", "RAPID FIRE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Gate of Infinity: at the end of the opponent's Fight phase, remove this unit from the battlefield and place it into Strategic Reserves."
+      },
+      {
+        "unitId": "gk-brotherhood-terminator-squad",
+        "name": "Brotherhood Terminator Squad",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "BATTLELINE", "PSYKER", "TERMINATOR", "DEEP STRIKE", "GRENADES", "RAPID FIRE"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Force Edge: melee attacks against non-MONSTER and non-VEHICLE models gain +1 Armor Penetration."
+      },
+      {
+        "unitId": "gk-interceptor-squad",
+        "name": "Interceptor Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "PSYKER", "FLY", "DEEP STRIKE", "GRENADES", "RAPID FIRE", "ASSAULT"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Personal Teleporters: after shooting, can make an additional 6\" Normal Move if not in Engagement Range with any enemy unit."
+      },
+      {
+        "unitId": "gk-purifier-squad",
+        "name": "Purifier Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "PSYKER", "DEEP STRIKE", "GRENADES", "TORRENT", "ASSAULT"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Sanctity of Purpose: re-roll Wound rolls of 1, or re-roll all Wound rolls when attacking a unit on or near an objective marker."
+      },
+      {
+        "unitId": "gk-purgation-squad",
+        "name": "Purgation Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "PSYKER", "DEEP STRIKE", "GRENADES", "HEAVY", "BLAST"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Righteous Persecution: after shooting, subtract 2 from one hit enemy unit's Move and Charge rolls until the start of your next turn."
+      },
+      {
+        "unitId": "gk-paladin-squad",
+        "name": "Paladin Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "PSYKER", "TERMINATOR", "DEEP STRIKE", "GRENADES", "RAPID FIRE"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Attuned Onslaught: after a Charge move, add 1 to the Damage characteristic of all melee weapons in this unit until end of turn."
+      },
+      {
+        "unitId": "gk-nemesis-dreadknight",
+        "name": "Nemesis Dreadknight",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "PSYKER", "DEEP STRIKE"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Indomitable Spirit: can shoot and charge after Advancing; Deadly Demise D3 inflicts mortal wounds on nearby units when destroyed."
       }
     ],
     "orks": [
