@@ -9,6 +9,21 @@ test.describe('smoke', () => {
     expect(await res.json()).toEqual({ status: 'ok' })
   })
 
+  test('games API returns a non-empty array', async ({ request }) => {
+    const apiUrl = process.env.API_URL
+    test.skip(!apiUrl, 'API_URL not set')
+    const res = await request.get(`${apiUrl}/games`)
+    expect(res.status()).toBe(200)
+    const body = await res.json()
+    expect(Array.isArray(body)).toBe(true)
+    expect(body.length).toBeGreaterThan(0)
+    expect(body[0]).toMatchObject({
+      gameId: expect.any(String),
+      name: expect.any(String),
+      available: expect.any(Boolean),
+    })
+  })
+
   test('site loads', async ({ page }) => {
     await page.goto('/')
     await expect(page).toHaveTitle(/Auspex|40K/i)
