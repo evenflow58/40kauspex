@@ -7,9 +7,12 @@
     "preview": "turbo preview",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "test": "turbo test --"
+    "test": "turbo test --",
+    "local-api": "tsx services/local-dev/server.ts",
+    "local-api:seed": "tsx services/local-dev/seed.ts"
   },
   "devDependencies": {
+    "tsx": "^4.19.2",
     "turbo": "^2.5.3"
   },
   "engines": {

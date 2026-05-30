@@ -64,9 +64,16 @@ pnpm --filter @40kauspex/mfe-companion preview   # serves on :3002
 
 # Terminal 3 — run shell dev server
 pnpm --filter @40kauspex/shell dev           # serves on :3000
+
+# Terminal 4 — run local API against real Lambda handlers + DynamoDB Local
+docker compose up -d                         # starts DynamoDB Local on :8000
+pnpm local-api:seed                          # creates table + seeds reference data (run once)
+pnpm local-api                              # serves on :3003
 ```
 
 Open http://localhost:3000
+
+`pnpm local-api:seed` is idempotent — safe to re-run (skips table creation if it already exists, re-seeds reference data).
 
 **Build all:**
 ```bash
