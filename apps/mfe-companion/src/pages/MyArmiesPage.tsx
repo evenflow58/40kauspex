@@ -40,24 +40,31 @@ export default function MyArmiesPage() {
   const [armies, setArmies] = useState<ArmySummary[] | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const load = useCallback(() => {
+  const [retryCount, setRetryCount] = useState(0)
+  const retry = useCallback(() => setRetryCount((c) => c + 1), [])
+
+  useEffect(() => {
+    let cancelled = false
     setError(null)
     setArmies(null)
     companionApi
       .listArmies(accessToken)
       .then((list) => {
+        if (cancelled) return
         // Most recently updated first — what the user is likeliest to return to.
         const sorted = [...list].sort((a, b) =>
           b.updatedAt.localeCompare(a.updatedAt)
         )
         setArmies(sorted)
       })
-      .catch((err: unknown) =>
+      .catch((err: unknown) => {
+        if (cancelled) return
         setError(err instanceof Error ? err.message : 'Failed to load armies')
-      )
-  }, [accessToken])
-
-  useEffect(load, [load])
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [accessToken, retryCount])
 
   return (
     <section className="space-y-6">
@@ -71,7 +78,7 @@ export default function MyArmiesPage() {
         </p>
       </div>
 
-      {error && <ErrorView message={error} onRetry={load} />}
+      {error && <ErrorView message={error} onRetry={retry} />}
       {!error && !armies && <LoadingView label="Loading your armies…" />}
 
       {armies && armies.length === 0 && (
@@ -98,7 +105,7 @@ export default function MyArmiesPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-xs text-muted-foreground">
-                  Created {formatDate(army.createdAt)}
+                  Updated {formatDate(army.updatedAt)}
                 </p>
               </CardContent>
               <CardFooter>
