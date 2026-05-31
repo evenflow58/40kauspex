@@ -24,7 +24,7 @@
           "Take Battle-shock tests for units below half-strength",
           "Use Command-phase abilities and Stratagems"
         ],
-        "relevantKeywords": ["LEADER", "CHARACTER"]
+        "relevantKeywords": ["LEADER", "CHARACTER", "WARRIOR STRATEGIST", "SANCTIFYING RITUAL"]
       },
       {
         "order": 2,
@@ -46,7 +46,7 @@
           "Choose valid targets and resolve ranged attacks",
           "Apply weapon abilities such as Rapid Fire and Blast"
         ],
-        "relevantKeywords": ["RAPID FIRE", "HEAVY", "ASSAULT", "PISTOL", "BLAST", "TORRENT"]
+        "relevantKeywords": ["RAPID FIRE", "HEAVY", "ASSAULT", "PISTOL", "BLAST", "TORRENT", "CHAMPION OF THE ORDER OF PURIFIERS", "GUIDANCE OF THE ANCIENTS", "PERSONAL TELEPORTERS", "SANCTITY OF PURPOSE", "RIGHTEOUS PERSECUTION", "INDOMITABLE SPIRIT"]
       },
       {
         "order": 4,
@@ -57,7 +57,7 @@
           "Roll 2D6 and make the charge move into Engagement Range",
           "Resolve Heroic Interventions"
         ],
-        "relevantKeywords": ["CAVALRY", "MONSTER", "VEHICLE"]
+        "relevantKeywords": ["CAVALRY", "MONSTER", "VEHICLE", "ATTUNED ONSLAUGHT", "INDOMITABLE SPIRIT"]
       },
       {
         "order": 5,
@@ -68,7 +68,7 @@
           "Pile In before attacking and Consolidate afterwards",
           "Resolve melee weapon abilities"
         ],
-        "relevantKeywords": ["FIGHTS FIRST", "FIGHTS LAST", "LETHAL HITS", "SUSTAINED HITS"]
+        "relevantKeywords": ["FIGHTS FIRST", "FIGHTS LAST", "LETHAL HITS", "SUSTAINED HITS", "GATE OF INFINITY", "FORCE EDGE", "HAMMER AFLAME", "SANCTITY OF PURPOSE", "MIGHT OF TITAN"]
       }
     ]
   },
@@ -76,6 +76,7 @@
     "warhammer-40k": [
       { "factionId": "space-marines", "name": "Space Marines" },
       { "factionId": "chaos-space-marines", "name": "Chaos Space Marines" },
+      { "factionId": "grey-knights", "name": "Grey Knights" },
       { "factionId": "orks", "name": "Orks" },
       { "factionId": "necrons", "name": "Necrons" }
     ]
@@ -243,6 +244,118 @@
         "hasRanged": true,
         "hasMelee": true,
         "briefAbility": "Fleshmetal Guns: their weapon profile changes each Shooting Phase."
+      }
+    ],
+    "grey-knights": [
+      {
+        "unitId": "gk-grand-master",
+        "name": "Grand Master",
+        "battlefieldRole": "Character",
+        "keywords": ["WARRIOR STRATEGIST", "MIGHT OF TITAN", "GATE OF INFINITY"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Warrior Strategist: once per battle round, reduce the CP cost of one Stratagem by 1; Might of Titan: once per battle at the start of the Fight phase, add 3 to Attacks and Strength of all melee weapons until end of phase."
+      },
+      {
+        "unitId": "gk-grand-master-voldus",
+        "name": "Grand Master Voldus",
+        "battlefieldRole": "Character",
+        "keywords": ["HAMMER AFLAME", "GATE OF INFINITY"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Hammer Aflame: when selected to fight, roll D6 per enemy unit in Engagement Range — on 2-3 deal 1 mortal wound, on 4-5 deal D3, on a 6 deal D3+3."
+      },
+      {
+        "unitId": "gk-castellan-crowe",
+        "name": "Castellan Crowe",
+        "battlefieldRole": "Character",
+        "keywords": ["CHAMPION OF THE ORDER OF PURIFIERS"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Champion of the Order of Purifiers: while leading a Purifier Squad, add 1 to the Attacks of Purifying Flame weapons in the unit; Foresight re-rolls Hit rolls against Characters."
+      },
+      {
+        "unitId": "gk-venerable-dreadnought",
+        "name": "Venerable Dreadnought",
+        "battlefieldRole": "Character",
+        "keywords": ["DEEP STRIKE", "GUIDANCE OF THE ANCIENTS", "GATE OF INFINITY"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Guidance of the Ancients: after this unit shoots, add 1 to Hit rolls for all Grey Knights targeting the same enemy unit until end of phase."
+      },
+      {
+        "unitId": "gk-strike-squad",
+        "name": "Strike Squad",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "DEEP STRIKE", "SANCTIFYING RITUAL", "GATE OF INFINITY"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Sanctifying Ritual: perform a psychic action to maintain control of an objective marker even when the enemy has equal or greater Objective Control."
+      },
+      {
+        "unitId": "gk-brotherhood-terminator-squad",
+        "name": "Brotherhood Terminator Squad",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "DEEP STRIKE", "GATE OF INFINITY", "FORCE EDGE"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Force Edge: melee attacks against non-MONSTER and non-VEHICLE models gain +1 Armor Penetration."
+      },
+      {
+        "unitId": "gk-interceptor-squad",
+        "name": "Interceptor Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "FLY", "DEEP STRIKE", "GATE OF INFINITY", "PERSONAL TELEPORTERS"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Personal Teleporters: after this unit shoots, it can make an additional 6\" Normal Move if not in Engagement Range with any enemy unit."
+      },
+      {
+        "unitId": "gk-purifier-squad",
+        "name": "Purifier Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "DEEP STRIKE", "GATE OF INFINITY", "SANCTITY OF PURPOSE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Sanctity of Purpose: re-roll Wound rolls of 1; re-roll all Wound rolls when attacking a unit on or near an objective marker."
+      },
+      {
+        "unitId": "gk-purgation-squad",
+        "name": "Purgation Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "DEEP STRIKE", "GATE OF INFINITY", "RIGHTEOUS PERSECUTION"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Righteous Persecution: after shooting, subtract 2 from one hit enemy unit's Move and Charge rolls until the start of your next turn."
+      },
+      {
+        "unitId": "gk-paladin-squad",
+        "name": "Paladin Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "DEEP STRIKE", "GATE OF INFINITY", "ATTUNED ONSLAUGHT"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Attuned Onslaught: after this unit makes a Charge move, add 1 to the Damage characteristic of all its melee weapons until end of turn."
+      },
+      {
+        "unitId": "gk-nemesis-dreadknight",
+        "name": "Nemesis Dreadknight",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "DEEP STRIKE", "GATE OF INFINITY", "INDOMITABLE SPIRIT"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Indomitable Spirit: this unit can Advance and still shoot and charge in the same turn."
       }
     ],
     "orks": [

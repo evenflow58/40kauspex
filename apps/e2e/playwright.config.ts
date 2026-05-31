@@ -19,7 +19,12 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        // Use system Chrome locally when Playwright's own Chromium isn't installed.
+        // CI installs Playwright's bundled Chromium via `npx playwright install`.
+        ...(process.env.CI ? {} : { channel: 'chrome' }),
+      },
     },
   ],
 })
