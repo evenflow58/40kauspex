@@ -53,6 +53,14 @@ describe('GameSelectionPage', () => {
     expect(screen.getByText('Age of Sigmar')).toBeInTheDocument()
   })
 
+  it('renders a My Armies link in the header', () => {
+    vi.mocked(companionApi.listGames).mockReturnValue(new Promise(() => {}))
+    renderPage()
+    expect(
+      screen.getByRole('link', { name: /my armies/i })
+    ).toHaveAttribute('href', '/companion/armies')
+  })
+
   it('enables the Build action for available games', async () => {
     vi.mocked(companionApi.listGames).mockResolvedValue(GAMES)
     renderPage()

@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import {
   Button,
   Card,
@@ -39,14 +39,19 @@ export default function GameSelectionPage() {
 
   return (
     <section className="space-y-6">
-      <header>
-        <h2 className="text-2xl font-semibold tracking-tight">
-          Choose your game
-        </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Pick a tabletop game to start building an army and using the phase
-          companion.
-        </p>
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-2xl font-semibold tracking-tight">
+            Choose your game
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Pick a tabletop game to start building an army and using the phase
+            companion.
+          </p>
+        </div>
+        <Button variant="outline" asChild>
+          <Link to="/companion/armies">My Armies</Link>
+        </Button>
       </header>
 
       {error && <ErrorView message={error} onRetry={load} />}
