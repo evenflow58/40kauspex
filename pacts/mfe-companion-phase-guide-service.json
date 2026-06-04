@@ -34,9 +34,6 @@
               "units": [
                 {
                   "entryId": "entry-1",
-                  "matchedKeywords": [
-                    "INFANTRY"
-                  ],
                   "unitName": "Boyz"
                 }
               ]
@@ -157,23 +154,6 @@
               ]
             },
             "$.phases[*].units[*].entryId": {
-              "combine": "AND",
-              "matchers": [
-                {
-                  "match": "type"
-                }
-              ]
-            },
-            "$.phases[*].units[*].matchedKeywords": {
-              "combine": "AND",
-              "matchers": [
-                {
-                  "match": "type",
-                  "min": 1
-                }
-              ]
-            },
-            "$.phases[*].units[*].matchedKeywords[*]": {
               "combine": "AND",
               "matchers": [
                 {

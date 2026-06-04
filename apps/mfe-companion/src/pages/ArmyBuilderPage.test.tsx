@@ -54,6 +54,7 @@ const UNITS = [
     hasMelee: true,
     briefAbility: null,
     battlefieldRole: 'Character',
+    relevantPhases: ['command', 'shooting', 'fight'],
   },
   {
     unitId: 'ork-boyz',
@@ -65,6 +66,7 @@ const UNITS = [
     hasMelee: true,
     briefAbility: 'Fight harder.',
     battlefieldRole: 'Battleline',
+    relevantPhases: ['shooting', 'fight'],
   },
 ]
 

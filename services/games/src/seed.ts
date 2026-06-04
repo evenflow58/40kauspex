@@ -79,6 +79,7 @@ function buildItems(): Item[] {
         hasMelee: unit.hasMelee,
         briefAbility: unit.briefAbility,
         battlefieldRole: unit.battlefieldRole,
+        relevantPhases: unit.relevantPhases,
       })
     }
   }

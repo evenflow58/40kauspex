@@ -106,6 +106,7 @@ describe('phase-guide-service pact provider verification', () => {
                   entryId: 'entry-1',
                   unitName: 'Boyz',
                   keywords: ['INFANTRY', 'CORE'],
+                  relevantPhases: ['command'],
                 },
               ],
             })

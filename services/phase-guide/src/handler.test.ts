@@ -71,7 +71,7 @@ describe('phase-guide handler', () => {
     expect(result.statusCode).toBe(404)
   })
 
-  it('matches unit keywords to phase keywords case-insensitively', async () => {
+  it('routes units to phases via relevantPhases', async () => {
     ddbMock.on(GetCommand).resolves({ Item: ARMY_ITEM })
     // First QueryCommand: army units. Second QueryCommand: phases.
     ddbMock
@@ -81,7 +81,8 @@ describe('phase-guide handler', () => {
           {
             entryId: 'e1',
             unitName: 'Intercessor Squad',
-            keywords: ['infantry', 'core', 'rapid fire'],
+            keywords: ['INFANTRY', 'CORE', 'RAPID FIRE'],
+            relevantPhases: ['movement', 'shooting'],
             briefAbility: 'Objective Secured.',
           },
         ],
@@ -98,10 +99,11 @@ describe('phase-guide handler', () => {
 
     const movement = body.phases.find((p) => p.name === 'Movement Phase')!
     expect(movement.units).toHaveLength(1)
-    expect(movement.units[0].matchedKeywords).toEqual(['infantry'])
+    expect(movement.units[0].matchedKeywords).toEqual([])
 
     const shooting = body.phases.find((p) => p.name === 'Shooting Phase')!
-    expect(shooting.units[0].matchedKeywords).toEqual(['rapid fire'])
+    expect(shooting.units).toHaveLength(1)
+    expect(shooting.units[0].matchedKeywords).toEqual([])
   })
 
   it('returns every phase even when no army units match', async () => {
