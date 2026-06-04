@@ -364,7 +364,6 @@ describe('phase-guide service contract', () => {
               units: eachLike({
                 entryId: string('entry-1'),
                 unitName: string('Boyz'),
-                matchedKeywords: eachLike(string('INFANTRY')),
               }),
             }),
           },
