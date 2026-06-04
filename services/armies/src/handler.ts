@@ -23,6 +23,7 @@ interface UnitInput {
   hasMelee?: boolean
   briefAbility?: string | null
   battlefieldRole?: string
+  relevantPhases?: string[]
 }
 
 /**
@@ -96,6 +97,7 @@ function toArmyUnit(item: Record<string, unknown>) {
     hasMelee: (item.hasMelee as boolean) ?? false,
     briefAbility: (item.briefAbility as string | undefined) ?? null,
     battlefieldRole: (item.battlefieldRole as string) ?? 'Other',
+    relevantPhases: (item.relevantPhases as string[]) ?? [],
   }
 }
 
@@ -114,6 +116,7 @@ function buildUnitItem(armyId: string, unit: UnitInput) {
     hasMelee: unit.hasMelee ?? false,
     briefAbility: unit.briefAbility ?? undefined,
     battlefieldRole: unit.battlefieldRole ?? 'Other',
+    relevantPhases: unit.relevantPhases ?? [],
   }
 }
 

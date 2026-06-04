@@ -149,6 +149,7 @@ async function listUnits(
     hasMelee: item.hasMelee as boolean,
     briefAbility: (item.briefAbility as string | undefined) ?? null,
     battlefieldRole: item.battlefieldRole as string,
+    relevantPhases: (item.relevantPhases as string[]) ?? [],
   }))
   return json(200, units)
 }

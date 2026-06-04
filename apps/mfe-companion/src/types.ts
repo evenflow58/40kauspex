@@ -25,6 +25,7 @@ export interface Unit {
   hasMelee: boolean
   briefAbility: string | null
   battlefieldRole: string
+  relevantPhases: string[]
 }
 
 /** A game phase with its reference text and relevant keywords. */
@@ -47,6 +48,7 @@ export interface ArmyUnit {
   hasMelee: boolean
   briefAbility: string | null
   battlefieldRole: string
+  relevantPhases: string[]
 }
 
 /** Army summary, as returned by `GET /armies`. */

@@ -78,7 +78,26 @@
       { "factionId": "chaos-space-marines", "name": "Chaos Space Marines" },
       { "factionId": "grey-knights", "name": "Grey Knights" },
       { "factionId": "orks", "name": "Orks" },
-      { "factionId": "necrons", "name": "Necrons" }
+      { "factionId": "necrons", "name": "Necrons" },
+      { "factionId": "adepta-sororitas", "name": "Adepta Sororitas" },
+      { "factionId": "adeptus-custodes", "name": "Adeptus Custodes" },
+      { "factionId": "adeptus-mechanicus", "name": "Adeptus Mechanicus" },
+      { "factionId": "adeptus-titanicus", "name": "Adeptus Titanicus" },
+      { "factionId": "astra-militarum", "name": "Astra Militarum" },
+      { "factionId": "imperial-agents", "name": "Imperial Agents" },
+      { "factionId": "imperial-knights", "name": "Imperial Knights" },
+      { "factionId": "chaos-daemons", "name": "Chaos Daemons" },
+      { "factionId": "chaos-knights", "name": "Chaos Knights" },
+      { "factionId": "death-guard", "name": "Death Guard" },
+      { "factionId": "emperor-s-children", "name": "Emperor's Children" },
+      { "factionId": "thousand-sons", "name": "Thousand Sons" },
+      { "factionId": "world-eaters", "name": "World Eaters" },
+      { "factionId": "aeldari", "name": "Aeldari" },
+      { "factionId": "drukhari", "name": "Drukhari" },
+      { "factionId": "genestealer-cults", "name": "Genestealer Cults" },
+      { "factionId": "leagues-of-votann", "name": "Leagues of Votann" },
+      { "factionId": "t-au-empire", "name": "T'au Empire" },
+      { "factionId": "tyranids", "name": "Tyranids" }
     ]
   },
   "units": {
@@ -91,7 +110,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Objective Secured: counts as one additional model when contesting objective markers."
+        "briefAbility": "Objective Secured: counts as one additional model when contesting objective markers.",
+        "relevantPhases": ["shooting", "charge", "fight"]
       },
       {
         "unitId": "sm-assault-intercessor-squad",
@@ -101,7 +121,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Shock Assault: re-roll Charge rolls for this unit."
+        "briefAbility": "Shock Assault: re-roll Charge rolls for this unit.",
+        "relevantPhases": ["shooting", "charge", "fight"]
       },
       {
         "unitId": "sm-incursor-squad",
@@ -111,7 +132,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Multi-spectrum Array: ignores the benefits of cover and Stealth when shooting."
+        "briefAbility": "Multi-spectrum Array: ignores the benefits of cover and Stealth when shooting.",
+        "relevantPhases": ["movement", "shooting", "fight"]
       },
       {
         "unitId": "sm-tactical-squad",
@@ -121,7 +143,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Combat Squads: may be split into two units before the battle."
+        "briefAbility": "Combat Squads: may be split into two units before the battle.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "sm-devastator-squad",
@@ -131,7 +154,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Signum: one model improves the Ballistic Skill of its attacks each turn."
+        "briefAbility": "Signum: one model improves the Ballistic Skill of its attacks each turn.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "sm-land-raider",
@@ -141,7 +165,8 @@
         "movement": 10,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Assault Ramp: embarked units may charge in a turn they disembark."
+        "briefAbility": "Assault Ramp: embarked units may charge in a turn they disembark.",
+        "relevantPhases": ["movement", "shooting", "charge", "fight"]
       },
       {
         "unitId": "sm-predator-annihilator",
@@ -151,7 +176,8 @@
         "movement": 10,
         "hasRanged": true,
         "hasMelee": false,
-        "briefAbility": "Hunter-killer optics: re-roll a single Hit roll each Shooting Phase."
+        "briefAbility": "Hunter-killer optics: re-roll a single Hit roll each Shooting Phase.",
+        "relevantPhases": ["shooting"]
       },
       {
         "unitId": "sm-librarian",
@@ -161,7 +187,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Psychic Hood: subtract 1 from Psychic attacks targeting this unit."
+        "briefAbility": "Psychic Hood: subtract 1 from Psychic attacks targeting this unit.",
+        "relevantPhases": ["command", "shooting", "fight"]
       }
     ],
     "chaos-space-marines": [
@@ -173,7 +200,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Malicious Volleys: this unit's Rapid Fire weapons make extra attacks against units in range."
+        "briefAbility": "Malicious Volleys: this unit's Rapid Fire weapons make extra attacks against units in range.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "csm-chosen",
@@ -183,7 +211,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Veterans of the Long War: improves the Strength of this unit's melee attacks."
+        "briefAbility": "Veterans of the Long War: improves the Strength of this unit's melee attacks.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "csm-chaos-havocs",
@@ -193,7 +222,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Heavy Weapon Specialists: re-roll Hit rolls of 1 if the unit Remained Stationary."
+        "briefAbility": "Heavy Weapon Specialists: re-roll Hit rolls of 1 if the unit Remained Stationary.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "csm-terminators",
@@ -203,7 +233,8 @@
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Teleport Strike: arrives from Reserves via Deep Strike."
+        "briefAbility": "Teleport Strike: arrives from Reserves via Deep Strike.",
+        "relevantPhases": ["movement", "shooting", "fight"]
       },
       {
         "unitId": "csm-chaos-lord",
@@ -213,7 +244,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Mark of Chaos: grants the led unit a Dark Pact ability."
+        "briefAbility": "Mark of Chaos: grants the led unit a Dark Pact ability.",
+        "relevantPhases": ["command", "shooting", "fight"]
       },
       {
         "unitId": "csm-helbrute",
@@ -223,7 +255,8 @@
         "movement": 8,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Crazed: makes a bonus move or shoot action when destroyed."
+        "briefAbility": "Crazed: makes a bonus move or shoot action when destroyed.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "csm-rhino",
@@ -233,7 +266,8 @@
         "movement": 12,
         "hasRanged": true,
         "hasMelee": false,
-        "briefAbility": "Self-repair: regains a lost wound at the start of each Command Phase."
+        "briefAbility": "Self-repair: regains a lost wound at the start of each Command Phase.",
+        "relevantPhases": ["movement", "shooting"]
       },
       {
         "unitId": "csm-obliterators",
@@ -243,7 +277,8 @@
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Fleshmetal Guns: their weapon profile changes each Shooting Phase."
+        "briefAbility": "Fleshmetal Guns: their weapon profile changes each Shooting Phase.",
+        "relevantPhases": ["movement", "shooting", "fight"]
       }
     ],
     "grey-knights": [
@@ -255,7 +290,8 @@
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Warrior Strategist: once per battle round, reduce the CP cost of one Stratagem by 1; Might of Titan: once per battle at the start of the Fight phase, add 3 to Attacks and Strength of all melee weapons until end of phase."
+        "briefAbility": "Warrior Strategist: once per battle round, reduce the CP cost of one Stratagem by 1; Might of Titan: once per battle at the start of the Fight phase, add 3 to Attacks and Strength of all melee weapons until end of phase.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "gk-grand-master-voldus",
@@ -265,7 +301,8 @@
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Hammer Aflame: when selected to fight, roll D6 per enemy unit in Engagement Range — on 2-3 deal 1 mortal wound, on 4-5 deal D3, on a 6 deal D3+3."
+        "briefAbility": "Hammer Aflame: when selected to fight, roll D6 per enemy unit in Engagement Range — on 2-3 deal 1 mortal wound, on 4-5 deal D3, on a 6 deal D3+3.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "gk-castellan-crowe",
@@ -275,7 +312,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Champion of the Order of Purifiers: while leading a Purifier Squad, add 1 to the Attacks of Purifying Flame weapons in the unit; Foresight re-rolls Hit rolls against Characters."
+        "briefAbility": "Champion of the Order of Purifiers: while leading a Purifier Squad, add 1 to the Attacks of Purifying Flame weapons in the unit; Foresight re-rolls Hit rolls against Characters.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "gk-venerable-dreadnought",
@@ -285,7 +323,8 @@
         "movement": 8,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Guidance of the Ancients: after this unit shoots, add 1 to Hit rolls for all Grey Knights targeting the same enemy unit until end of phase."
+        "briefAbility": "Guidance of the Ancients: after this unit shoots, add 1 to Hit rolls for all Grey Knights targeting the same enemy unit until end of phase.",
+        "relevantPhases": ["movement", "shooting", "fight"]
       },
       {
         "unitId": "gk-strike-squad",
@@ -295,7 +334,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Sanctifying Ritual: perform a psychic action to maintain control of an objective marker even when the enemy has equal or greater Objective Control."
+        "briefAbility": "Sanctifying Ritual: perform a psychic action to maintain control of an objective marker even when the enemy has equal or greater Objective Control.",
+        "relevantPhases": ["movement", "shooting", "fight"]
       },
       {
         "unitId": "gk-brotherhood-terminator-squad",
@@ -305,7 +345,8 @@
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Force Edge: melee attacks against non-MONSTER and non-VEHICLE models gain +1 Armor Penetration."
+        "briefAbility": "Force Edge: melee attacks against non-MONSTER and non-VEHICLE models gain +1 Armor Penetration.",
+        "relevantPhases": ["movement", "shooting", "fight"]
       },
       {
         "unitId": "gk-interceptor-squad",
@@ -315,7 +356,8 @@
         "movement": 12,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Personal Teleporters: after this unit shoots, it can make an additional 6\" Normal Move if not in Engagement Range with any enemy unit."
+        "briefAbility": "Personal Teleporters: after this unit shoots, it can make an additional 6\" Normal Move if not in Engagement Range with any enemy unit.",
+        "relevantPhases": ["movement", "shooting", "fight"]
       },
       {
         "unitId": "gk-purifier-squad",
@@ -325,7 +367,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Sanctity of Purpose: re-roll Wound rolls of 1; re-roll all Wound rolls when attacking a unit on or near an objective marker."
+        "briefAbility": "Sanctity of Purpose: re-roll Wound rolls of 1; re-roll all Wound rolls when attacking a unit on or near an objective marker.",
+        "relevantPhases": ["movement", "shooting", "fight"]
       },
       {
         "unitId": "gk-purgation-squad",
@@ -335,7 +378,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Righteous Persecution: after shooting, subtract 2 from one hit enemy unit's Move and Charge rolls until the start of your next turn."
+        "briefAbility": "Righteous Persecution: after shooting, subtract 2 from one hit enemy unit's Move and Charge rolls until the start of your next turn.",
+        "relevantPhases": ["movement", "shooting", "charge", "fight"]
       },
       {
         "unitId": "gk-paladin-squad",
@@ -345,7 +389,8 @@
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Attuned Onslaught: after this unit makes a Charge move, add 1 to the Damage characteristic of all its melee weapons until end of turn."
+        "briefAbility": "Attuned Onslaught: after this unit makes a Charge move, add 1 to the Damage characteristic of all its melee weapons until end of turn.",
+        "relevantPhases": ["movement", "shooting", "charge", "fight"]
       },
       {
         "unitId": "gk-nemesis-dreadknight",
@@ -355,7 +400,8 @@
         "movement": 8,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Indomitable Spirit: this unit can Advance and still shoot and charge in the same turn."
+        "briefAbility": "Indomitable Spirit: this unit can Advance and still shoot and charge in the same turn.",
+        "relevantPhases": ["movement", "shooting", "charge", "fight"]
       }
     ],
     "orks": [
@@ -367,7 +413,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Breakin' Heads: a Boss model can force a re-roll of the unit's Hit rolls."
+        "briefAbility": "Breakin' Heads: a Boss model can force a re-roll of the unit's Hit rolls.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "ork-nobz",
@@ -377,7 +424,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "'Ard as Nails: improves the Save characteristic of this unit."
+        "briefAbility": "'Ard as Nails: improves the Save characteristic of this unit.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "ork-gretchin",
@@ -387,7 +435,8 @@
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Grot Shield: can be sacrificed to protect a nearby Ork unit."
+        "briefAbility": "Grot Shield: can be sacrificed to protect a nearby Ork unit.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "ork-lootas",
@@ -397,7 +446,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "More Dakka: deafening guns make a variable number of shots."
+        "briefAbility": "More Dakka: deafening guns make a variable number of shots.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "ork-tankbustas",
@@ -407,7 +457,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Tank Hunters: re-roll Hit and Wound rolls against Monsters and Vehicles."
+        "briefAbility": "Tank Hunters: re-roll Hit and Wound rolls against Monsters and Vehicles.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "ork-warboss",
@@ -417,7 +468,8 @@
         "movement": 6,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Da Biggest and da Best: the led unit gains an attacks bonus on the charge."
+        "briefAbility": "Da Biggest and da Best: the led unit gains an attacks bonus on the charge.",
+        "relevantPhases": ["command", "shooting", "charge", "fight"]
       },
       {
         "unitId": "ork-deff-dread",
@@ -427,7 +479,8 @@
         "movement": 8,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Fury of the Dread: gains extra attacks for each weapon it is equipped with."
+        "briefAbility": "Fury of the Dread: gains extra attacks for each weapon it is equipped with.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "ork-battlewagon",
@@ -437,7 +490,8 @@
         "movement": 9,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "'Ramshackle but Rugged': reduces incoming Damage characteristics by 1."
+        "briefAbility": "'Ramshackle but Rugged': reduces incoming Damage characteristics by 1.",
+        "relevantPhases": ["movement", "shooting", "fight"]
       }
     ],
     "necrons": [
@@ -449,7 +503,8 @@
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Reanimation Protocols: this unit reanimates wounds each Command Phase."
+        "briefAbility": "Reanimation Protocols: this unit reanimates wounds each Command Phase.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "necron-immortals",
@@ -459,7 +514,8 @@
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Reanimation Protocols: this unit reanimates wounds each Command Phase."
+        "briefAbility": "Reanimation Protocols: this unit reanimates wounds each Command Phase.",
+        "relevantPhases": ["shooting", "fight"]
       },
       {
         "unitId": "necron-lychguard",
@@ -469,7 +525,8 @@
         "movement": 5,
         "hasRanged": false,
         "hasMelee": true,
-        "briefAbility": "Bodyguard: can intercept attacks aimed at an attached Character."
+        "briefAbility": "Bodyguard: can intercept attacks aimed at an attached Character.",
+        "relevantPhases": ["fight"]
       },
       {
         "unitId": "necron-triarch-praetorians",
@@ -479,7 +536,8 @@
         "movement": 10,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "Praetorian Strike: improves attacks made after Advancing."
+        "briefAbility": "Praetorian Strike: improves attacks made after Advancing.",
+        "relevantPhases": ["movement", "shooting", "fight"]
       },
       {
         "unitId": "necron-overlord",
@@ -489,7 +547,8 @@
         "movement": 5,
         "hasRanged": true,
         "hasMelee": true,
-        "briefAbility": "My Will Be Done: improves the Hit rolls of the led unit."
+        "briefAbility": "My Will Be Done: improves the Hit rolls of the led unit.",
+        "relevantPhases": ["command", "shooting", "fight"]
       },
       {
         "unitId": "necron-canoptek-scarab-swarms",
@@ -499,7 +558,8 @@
         "movement": 10,
         "hasRanged": false,
         "hasMelee": true,
-        "briefAbility": "Entropic Strike: melee attacks gain additional damage against Vehicles."
+        "briefAbility": "Entropic Strike: melee attacks gain additional damage against Vehicles.",
+        "relevantPhases": ["movement", "fight"]
       },
       {
         "unitId": "necron-ghost-ark",
@@ -509,7 +569,8 @@
         "movement": 10,
         "hasRanged": true,
         "hasMelee": false,
-        "briefAbility": "Repair Barge: reanimates wounds for a nearby Necron unit each turn."
+        "briefAbility": "Repair Barge: reanimates wounds for a nearby Necron unit each turn.",
+        "relevantPhases": ["movement", "shooting"]
       },
       {
         "unitId": "necron-annihilation-barge",
@@ -519,7 +580,1542 @@
         "movement": 10,
         "hasRanged": true,
         "hasMelee": false,
-        "briefAbility": "Death Ray: a powerful arc weapon that can strike multiple targets."
+        "briefAbility": "Death Ray: a powerful arc weapon that can strike multiple targets.",
+        "relevantPhases": ["shooting"]
+      }
+    ],
+    "adepta-sororitas": [
+      {
+        "unitId": "as-battle-sisters-squad",
+        "name": "Battle Sisters Squad",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Acts of Faith: once per phase this unit can perform a Miracle dice-fueled Act of Faith to improve one roll.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "as-canoness",
+        "name": "Canoness",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Inspiring Presence: while leading a unit, the Canoness generates a Miracle dice when an Act of Faith is performed nearby.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "as-seraphim-squad",
+        "name": "Seraphim Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "FLY", "DEEP STRIKE", "PISTOL"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Divine Wings: can Deep Strike and re-roll Charge rolls after arriving from reserves.",
+        "relevantPhases": ["movement", "shooting", "charge", "fight"]
+      },
+      {
+        "unitId": "as-retributor-squad",
+        "name": "Retributor Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "HEAVY", "BLAST"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Hand of the Emperor: if this unit Remains Stationary it can re-roll Hit rolls for its Heavy weapons.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "as-dominion-squad",
+        "name": "Dominion Squad",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "ASSAULT", "RAPID FIRE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Vanguard: this unit can Advance and still shoot without penalty.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "as-celestian-sacresants",
+        "name": "Celestian Sacresants",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "FIGHTS FIRST"],
+        "movement": 6,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Sworn Shields: this unit can use Miracle dice to improve saving throws for attached Characters.",
+        "relevantPhases": ["fight"]
+      },
+      {
+        "unitId": "as-exorcist",
+        "name": "Exorcist",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "HEAVY", "BLAST"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Exorcist Missile Launcher: fires a variable number of shots that always wound on 2+ against enemy vehicles.",
+        "relevantPhases": ["shooting"]
+      },
+      {
+        "unitId": "as-saint-celestine",
+        "name": "Saint Celestine",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "FLY", "LEADER"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "The Miracle of the Returned: if destroyed, Celestine can return to the battlefield on a 2+ at the end of the phase.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      }
+    ],
+    "adeptus-custodes": [
+      {
+        "unitId": "ac-custodian-guard",
+        "name": "Custodian Guard",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Martial Ka'tah: at the start of each phase, choose a Ka'tah Stance granting either bonus hit rolls, wound rolls, or saves to the unit.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ac-shield-captain",
+        "name": "Shield-Captain",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Superior Creation: models in the led unit have a 4+ invulnerable save and ignore the first failed Battleshock test each turn.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "ac-allarus-custodians",
+        "name": "Allarus Custodians",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "DEEP STRIKE", "TERMINATOR"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Slayers of Tyrants: this unit's melee attacks gain Lethal Hits when targeting Character units.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "ac-custodian-wardens",
+        "name": "Custodian Wardens",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "FIGHTS FIRST"],
+        "movement": 6,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Warden's Duty: this unit always Fights First and can intercept wounds allocated to a nearby Character.",
+        "relevantPhases": ["fight"]
+      },
+      {
+        "unitId": "ac-vertus-praetors",
+        "name": "Vertus Praetors",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "FLY", "CAVALRY"],
+        "movement": 14,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Sweeping Advance: if this unit charged, its attacks gain the Lance weapon ability this turn.",
+        "relevantPhases": ["movement", "shooting", "charge", "fight"]
+      },
+      {
+        "unitId": "ac-trajann-valoris",
+        "name": "Trajann Valoris",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Master of Mankind: once per battle round, this model can perform a Heroic Intervention even if no enemy is nearby, and re-rolls all hit and wound rolls until end of phase.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "ac-venerable-contemptor-dreadnought",
+        "name": "Venerable Contemptor Dreadnought",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "HEAVY"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Unyielding Ancient: this unit can re-roll one Hit roll and one Wound roll per fight.",
+        "relevantPhases": ["shooting", "fight"]
+      }
+    ],
+    "adeptus-mechanicus": [
+      {
+        "unitId": "adm-skitarii-rangers",
+        "name": "Skitarii Rangers",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "HEAVY", "RAPID FIRE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Bionics: models in this unit ignore the penalty for moving and shooting Heavy weapons.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "adm-skitarii-vanguard",
+        "name": "Skitarii Vanguard",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "ASSAULT", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Rad-saturation: enemy units within Engagement Range subtract 1 from Toughness for saves against this unit's attacks.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "adm-tech-priest-enginseer",
+        "name": "Tech-Priest Enginseer",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Repair: each Command Phase, restore D3 lost wounds to one friendly Vehicle within 3\".",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "adm-ironstrider-ballistarii",
+        "name": "Ironstrider Ballistarii",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "HEAVY", "RAPID FIRE"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Broad Spectrum Data-tether: re-roll Hit rolls of 1 for all friendly Adeptus Mechanicus units within 6\".",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "adm-sicarian-ruststalkers",
+        "name": "Sicarian Ruststalkers",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "DEEP STRIKE", "LETHAL HITS"],
+        "movement": 8,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Bladed Precision: melee attacks from this unit gain Lethal Hits and can re-roll one failed Wound roll per fight.",
+        "relevantPhases": ["movement", "fight"]
+      },
+      {
+        "unitId": "adm-sicarian-infiltrators",
+        "name": "Sicarian Infiltrators",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "DEEP STRIKE", "PISTOL"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Neurostatic Aura: enemy units within 3\" subtract 1 from their Battleshock tests and Leadership.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "adm-onager-dunecrawler",
+        "name": "Onager Dunecrawler",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "HEAVY", "BLAST"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Cognis Heavy Stubber: this unit can fire Overwatch without expending a Command Point.",
+        "relevantPhases": ["shooting"]
+      },
+      {
+        "unitId": "adm-belisarius-cawl",
+        "name": "Belisarius Cawl",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Lord of the Mechanicus: friendly Adeptus Mechanicus units within 6\" re-roll Hit rolls of 1, and Cawl can repair Vehicles in the Command Phase.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      }
+    ],
+    "adeptus-titanicus": [
+      {
+        "unitId": "adt-reaver-titan",
+        "name": "Reaver Titan",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TITANIC", "WALKER", "HEAVY"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Void Shields: this Titan has a 5+ invulnerable save; if that save fails, reduce the damage by the result of a D6.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "adt-warlord-titan",
+        "name": "Warlord Titan",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TITANIC", "WALKER", "HEAVY", "BLAST"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "God-Machine: this model cannot be Battle-shocked and its ranged weapons automatically hit on any unmodified hit roll.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "adt-warhound-titan",
+        "name": "Warhound Titan",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TITANIC", "WALKER", "HEAVY", "TORRENT"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Scout Titan: this model can Advance and still shoot all its weapons in the same turn.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "adt-knight-questoris",
+        "name": "Knight Questoris",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "HEAVY", "BLAST"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Ion Shield: this model has a 4+ invulnerable save against ranged attacks.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "adt-cerastus-knight-lancer",
+        "name": "Cerastus Knight-Lancer",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "CAVALRY", "FLY"],
+        "movement": 14,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Swift and Deadly: after a successful charge, this model can make an additional Attack with each of its melee weapons.",
+        "relevantPhases": ["movement", "shooting", "charge", "fight"]
+      },
+      {
+        "unitId": "adt-mechanicum-magos",
+        "name": "Mechanicum Magos",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Cortex Controller: friendly Adeptus Titanicus Vehicle units within 6\" ignore Battle-shock and re-roll Desperate Escape tests.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      }
+    ],
+    "astra-militarum": [
+      {
+        "unitId": "am-cadian-shock-troops",
+        "name": "Cadian Shock Troops",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE", "HEAVY"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Cadian Doctrine: if this unit did not move in its last Movement phase, its Rapid Fire weapons gain +1 to Hit rolls.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "am-infantry-squad",
+        "name": "Infantry Squad",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE", "GRENADES"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Take Cover: once per turn when this unit is targeted by a ranged attack, it may gain the benefit of Light Cover until end of phase.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "am-company-commander",
+        "name": "Company Commander",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Voice of Command: once per turn, issue one Order to a friendly Infantry unit within 6\", granting it a bonus action such as re-rolls or improved movement.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "am-tempestus-scions",
+        "name": "Tempestus Scions",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "DEEP STRIKE", "RAPID FIRE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Storm Troopers: arrive via Deep Strike and can re-roll Hits rolls if they did not move after arriving.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "am-ratlings",
+        "name": "Ratlings",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "HEAVY"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Sniper: attacks from this unit gain the Precision ability, letting you target Characters hiding in units.",
+        "relevantPhases": ["shooting"]
+      },
+      {
+        "unitId": "am-leman-russ-battle-tank",
+        "name": "Leman Russ Battle Tank",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "HEAVY", "BLAST"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Grinding Advance: this model does not suffer the penalty for moving and shooting Heavy weapons.",
+        "relevantPhases": ["shooting"]
+      },
+      {
+        "unitId": "am-hellhound",
+        "name": "Hellhound",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "HEAVY", "TORRENT"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Inferno Cannon: Torrent weapon that automatically hits and ignores Cover bonuses.",
+        "relevantPhases": ["shooting"]
+      },
+      {
+        "unitId": "am-yarrick",
+        "name": "Commissar Yarrick",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Unbreakable Will: friendly units within 6\" automatically pass Battleshock tests; Yarrick himself returns on a 2+ when slain.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      }
+    ],
+    "imperial-agents": [
+      {
+        "unitId": "ia-culexus-assassin",
+        "name": "Culexus Assassin",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CHARACTER", "PSYKER", "DEEP STRIKE"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Animus Speculum: the Culexus drains Warp energy and its shooting attacks are more powerful against Psykers; enemy Psykers within 12\" subtract 2 from their Psychic rolls.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "ia-vindicare-assassin",
+        "name": "Vindicare Assassin",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CHARACTER", "DEEP STRIKE", "HEAVY"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Exitus Rifle: all ranged attacks gain Precision and Lethal Hits, and can target Characters even when they are not the closest model.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "ia-eversor-assassin",
+        "name": "Eversor Assassin",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CHARACTER", "DEEP STRIKE", "PISTOL"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Frenzon: this model makes D6+1 melee attacks and, when destroyed, deals D3 mortal wounds to the closest enemy unit.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "ia-callidus-assassin",
+        "name": "Callidus Assassin",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CHARACTER", "DEEP STRIKE"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Neural Shredder: after set-up in Deep Strike, immediately shoot one enemy unit; the target unit is also Battle-shocked until the start of its next turn.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "ia-inquisitor",
+        "name": "Inquisitor",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "PSYKER"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Radical Methods: once per battle, the Inquisitor may use a Stratagem that would normally cost 2 CP for free.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "ia-sisters-of-silence",
+        "name": "Sisters of Silence",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "FIGHTS FIRST"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Psychic Abomination: Psykers within 12\" cannot use Stratagems, and suffer -1 to all Psychic actions.",
+        "relevantPhases": ["shooting", "fight"]
+      }
+    ],
+    "imperial-knights": [
+      {
+        "unitId": "ik-knight-paladin",
+        "name": "Knight Paladin",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "TITANIC", "HEAVY", "BLAST"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Ion Shield: this model has a 4+ invulnerable save against ranged attacks.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ik-knight-errant",
+        "name": "Knight Errant",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "TITANIC", "HEAVY", "TORRENT"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Thermal Cannon: devastating Melta weapon with Torrent that is most effective against heavily armored targets at close range.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ik-knight-warden",
+        "name": "Knight Warden",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "TITANIC", "HEAVY", "RAPID FIRE"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Avenger Gatling Cannon: fires a torrent of shots and can target multiple units if enough hits are scored.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ik-knight-gallant",
+        "name": "Knight Gallant",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "TITANIC"],
+        "movement": 10,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Headstrong: this model re-rolls Charge rolls and gains +2 Attacks on a turn in which it charged.",
+        "relevantPhases": ["charge", "fight"]
+      },
+      {
+        "unitId": "ik-armiger-warglaive",
+        "name": "Armiger Warglaive",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "HEAVY"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Hunters of Beasts: this model re-rolls all Hit and Wound rolls against Monster and Vehicle units.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ik-canis-rex",
+        "name": "Sir Hekhtur and Canis Rex",
+        "battlefieldRole": "Character",
+        "keywords": ["VEHICLE", "WALKER", "TITANIC", "CHARACTER"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "The Freeblade: if Canis Rex is destroyed, Sir Hekhtur can eject and continue fighting as an independent Character.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "ik-questoris-knight-preceptor",
+        "name": "Knight Preceptor",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "TITANIC", "HEAVY"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Mentor's Lore: once per battle round, a friendly Armiger unit within 12\" may use one of this model's Stratagems for free.",
+        "relevantPhases": ["shooting", "fight"]
+      }
+    ],
+    "chaos-daemons": [
+      {
+        "unitId": "cd-plaguebearers",
+        "name": "Plaguebearers",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "NURGLE", "DAEMON"],
+        "movement": 5,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Disgustingly Resilient: each time a model in this unit would lose a wound, on a 5+ the wound is ignored.",
+        "relevantPhases": ["fight"]
+      },
+      {
+        "unitId": "cd-bloodletters",
+        "name": "Bloodletters",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "KHORNE", "DAEMON"],
+        "movement": 6,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Murderous Tide: for each 10 models in this unit, melee attacks gain +1 Strength and +1 to Wound rolls.",
+        "relevantPhases": ["fight"]
+      },
+      {
+        "unitId": "cd-horrors-of-tzeentch",
+        "name": "Pink Horrors of Tzeentch",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "TZEENTCH", "DAEMON", "PSYKER"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Split: when a Pink Horror is destroyed, it spawns two Blue Horrors to replace it.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "cd-great-unclean-one",
+        "name": "Great Unclean One",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "NURGLE", "DAEMON", "PSYKER"],
+        "movement": 9,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Lord of Plagues: friendly Nurgle Daemon units within 6\" have Disgustingly Resilient on a 4+ instead of a 5+.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "cd-bloodthirster",
+        "name": "Bloodthirster",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "FLY", "KHORNE", "DAEMON"],
+        "movement": 14,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Rage Unbound: this model makes D6 additional melee attacks on any turn it charged, and heals D3 wounds after destroying an enemy unit in melee.",
+        "relevantPhases": ["command", "movement", "shooting", "charge", "fight"]
+      },
+      {
+        "unitId": "cd-lord-of-change",
+        "name": "Lord of Change",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "FLY", "TZEENTCH", "DAEMON", "PSYKER"],
+        "movement": 14,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Mastery of Magic: can attempt to use two Psychic actions per Psychic Phase instead of one.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "cd-daemon-prince",
+        "name": "Daemon Prince",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "FLY", "DAEMON", "PSYKER"],
+        "movement": 12,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Daemonic Allegiance: choose a Chaos God for this Daemon Prince; it gains a corresponding ability benefiting nearby units of that God's allegiance.",
+        "relevantPhases": ["command", "movement", "fight"]
+      },
+      {
+        "unitId": "cd-flamers",
+        "name": "Flamers",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "FLY", "TZEENTCH", "DAEMON", "TORRENT"],
+        "movement": 9,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Warpflame: Torrent weapon that hits automatically; on an unmodified wound roll of 6, the target suffers an additional mortal wound.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      }
+    ],
+    "chaos-knights": [
+      {
+        "unitId": "ck-war-dog-executioner",
+        "name": "War Dog Executioner",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "HEAVY", "RAPID FIRE"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Hunters of the Weak: this model re-rolls Wound rolls when targeting units that are below their starting strength.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ck-war-dog-karnivore",
+        "name": "War Dog Karnivore",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER"],
+        "movement": 12,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Daemonblade: this model re-rolls Charge rolls and, after a successful charge, adds 2 to the Attacks of its melee weapons.",
+        "relevantPhases": ["charge", "fight"]
+      },
+      {
+        "unitId": "ck-knight-abominant",
+        "name": "Knight Abominant",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "TITANIC", "PSYKER", "HEAVY"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Warpstorm: once per battle, unleash a psychic blast dealing D3+3 mortal wounds to every visible enemy unit within 12\".",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "ck-knight-desecrator",
+        "name": "Knight Desecrator",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "TITANIC", "HEAVY"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Laser Destructor: ranged attacks against Monsters and Vehicles gain +2 Damage; can fire twice if the model did not move.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ck-knight-rampager",
+        "name": "Knight Rampager",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "TITANIC"],
+        "movement": 10,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Frenzied Rampage: this model makes D6 additional melee attacks and re-rolls Charge rolls but cannot fire Overwatch.",
+        "relevantPhases": ["charge", "fight"]
+      },
+      {
+        "unitId": "ck-be-lakor",
+        "name": "Be'lakor",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "FLY", "DAEMON", "PSYKER"],
+        "movement": 14,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "The Dark Master: friendly Chaos Knights units within 12\" treat their Chaos bonus as one step higher, and once per turn Be'lakor can cancel one enemy Stratagem.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      }
+    ],
+    "death-guard": [
+      {
+        "unitId": "dg-plague-marines",
+        "name": "Plague Marines",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "PLAGUE", "LETHAL HITS"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Disgustingly Resilient: rolls of 5+ negate wounds; this unit's melee attacks have Lethal Hits against units under half-strength.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "dg-poxwalkers",
+        "name": "Poxwalkers",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "UNDEAD"],
+        "movement": 4,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Curse of the Walking Pox: each time an enemy Infantry model dies within Engagement Range of this unit, one Poxwalker is added back to the unit on a 5+.",
+        "relevantPhases": ["fight"]
+      },
+      {
+        "unitId": "dg-death-guard-lord",
+        "name": "Lord of Contagion",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER"],
+        "movement": 5,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Arch-Contaminator: melee weapons of all friendly Plague units within 6\" gain +1 to wound rolls.",
+        "relevantPhases": ["command", "fight"]
+      },
+      {
+        "unitId": "dg-blightlord-terminators",
+        "name": "Blightlord Terminators",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "TERMINATOR", "DEEP STRIKE"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Teleport Strike: arrive via Deep Strike; wounds from their weapons cannot be negated by Feel No Pain abilities.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "dg-deathshroud-terminators",
+        "name": "Deathshroud Terminators",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "TERMINATOR", "DEEP STRIKE", "FIGHTS FIRST"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Silent Bodyguard: when within 3\" of a Character, this unit can intercept wounds; attacks against them have -1 to Wound rolls.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "dg-mortarion",
+        "name": "Mortarion",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "FLY", "PSYKER", "TITANIC"],
+        "movement": 9,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Daemon Primarch: at the start of each turn, all enemy units within 12\" suffer D3 mortal wounds; Mortarion has a 4+ invulnerable save and Disgustingly Resilient on a 4+.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "dg-foetid-bloat-drone",
+        "name": "Foetid Bloat-drone",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "FLY", "TORRENT", "PLAGUE"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Disgusting Vitality: this model has a 5+ invulnerable save and heals 1 wound at the start of each friendly Command Phase.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      }
+    ],
+    "emperor-s-children": [
+      {
+        "unitId": "ec-noise-marines",
+        "name": "Noise Marines",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "SLAANESH", "ASSAULT"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Cacophonic Choir: after this unit shoots, the target unit must take a Battleshock test with a -2 modifier.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ec-chaos-lord-slaanesh",
+        "name": "Chaos Lord (Slaanesh)",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "SLAANESH", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Excess of Violence: once per Fight phase, when this model destroys an enemy model, it may immediately make D3 additional attacks against the same unit.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "ec-lucius-the-eternal",
+        "name": "Lucius the Eternal",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "SLAANESH"],
+        "movement": 6,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "The Armour of Shrieking Souls: each time this model loses a wound, on a 4+, the attacker suffers 1 mortal wound; if Lucius is destroyed, he is reborn inside the killer.",
+        "relevantPhases": ["command", "fight"]
+      },
+      {
+        "unitId": "ec-possessed",
+        "name": "Possessed",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "DAEMON", "SLAANESH", "LETHAL HITS"],
+        "movement": 7,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Daemonic Manifestation: this unit re-rolls Charge rolls and has +1 Attacks when within Engagement Range of the enemy before its activation.",
+        "relevantPhases": ["charge", "fight"]
+      },
+      {
+        "unitId": "ec-chaos-terminators-slaanesh",
+        "name": "Terminator Squad (Emperor's Children)",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "TERMINATOR", "DEEP STRIKE", "SLAANESH"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Supreme Warrior: after this unit fights, if they destroyed at least one model, they may immediately Consolidate an extra 3\".",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "ec-sonic-dreadnought",
+        "name": "Sonic Dreadnought",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "SLAANESH", "HEAVY", "TORRENT"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Blastmaster Barrage: Torrent weapon; every Hit roll of 6 generates an additional automatic hit.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ec-fulgrim",
+        "name": "Fulgrim",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "FLY", "PSYKER", "SLAANESH", "TITANIC"],
+        "movement": 14,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Daemon Primarch of Slaanesh: Fulgrim's attacks ignore invulnerable saves; when he is in combat, at the start of the Fight phase the enemy must pass a Leadership test or lose D3 models before fighting.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      }
+    ],
+    "thousand-sons": [
+      {
+        "unitId": "ts-rubric-marines",
+        "name": "Rubric Marines",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "TZEENTCH", "PSYKER", "RAPID FIRE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Rubric Automata: cannot be Battle-shocked; if the Aspiring Sorcerer is slain, the unit loses coherence and degrades.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "ts-scarab-occult-terminators",
+        "name": "Scarab Occult Terminators",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "TERMINATOR", "DEEP STRIKE", "TZEENTCH", "PSYKER"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "All is Dust: this unit has a 4+ invulnerable save; attacks with a Damage value of 1 cannot harm this unit.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "ts-exalted-sorcerer",
+        "name": "Exalted Sorcerer",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "TZEENTCH", "PSYKER", "FLY"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Tzeentchian Sorcery: each Psychic action performed by this model or the led unit generates an extra Fate dice result.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "ts-tzaangors",
+        "name": "Tzaangors",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "TZEENTCH", "DAEMON", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Brayhorn: this unit re-rolls Advance rolls and Charge rolls when within 12\" of a friendly Psyker.",
+        "relevantPhases": ["shooting", "charge", "fight"]
+      },
+      {
+        "unitId": "ts-magnus-the-red",
+        "name": "Magnus the Red",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "FLY", "PSYKER", "TZEENTCH", "TITANIC"],
+        "movement": 16,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Daemon Primarch of Tzeentch: Magnus can attempt three Psychic actions per Psychic Phase; the first two cost 0 CP.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "ts-mutalith-vortex-beast",
+        "name": "Mutalith Vortex Beast",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["MONSTER", "TZEENTCH", "DAEMON", "PSYKER"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Vortex of Doom: at the start of your Shooting Phase, choose one enemy unit within 24\" — it suffers mortal wounds based on a D6 roll.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      }
+    ],
+    "world-eaters": [
+      {
+        "unitId": "we-khorne-berzerkers",
+        "name": "Khorne Berzerkers",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "KHORNE", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Bringers of the Eightfold Path: this unit re-rolls Charge rolls and makes D6 additional melee attacks when it successfully charges.",
+        "relevantPhases": ["shooting", "charge", "fight"]
+      },
+      {
+        "unitId": "we-world-eaters-lord",
+        "name": "Lord of Skulls",
+        "battlefieldRole": "Character",
+        "keywords": ["VEHICLE", "CHARACTER", "MONSTER", "KHORNE"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Skulls for the Skull Throne: each enemy model slain in melee generates a Blood Tithe point for the World Eaters player.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "we-jakhals",
+        "name": "Jakhals",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "KHORNE", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Frenzied Devotion: when this unit is activated in the Fight Phase, it makes additional attacks equal to the number of models it has lost this battle round.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "we-exalted-eightbound",
+        "name": "Exalted Eightbound",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "KHORNE", "DAEMON"],
+        "movement": 6,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Boundless Ferocity: each time this unit's attacks score a Critical Hit in melee, gain an additional attack; attacks cannot be negated by invulnerable saves.",
+        "relevantPhases": ["fight"]
+      },
+      {
+        "unitId": "we-angron",
+        "name": "Angron",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "FLY", "KHORNE", "DAEMON", "TITANIC"],
+        "movement": 12,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Daemon Primarch of Khorne: Angron makes 12 melee attacks and re-rolls all failed hit and wound rolls; at the start of each Fight phase, every friendly Khorne unit within 8\" gains +1 Attack.",
+        "relevantPhases": ["command", "movement", "fight"]
+      },
+      {
+        "unitId": "we-blood-slaughterer",
+        "name": "Blood Slaughterer",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "WALKER", "KHORNE", "DAEMON"],
+        "movement": 10,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Dragging Chains: if this model ends a charge within 6\" of an enemy unit that is not in Engagement Range, it may drag one model from that unit into Engagement Range.",
+        "relevantPhases": ["charge", "fight"]
+      },
+      {
+        "unitId": "we-world-eaters-chaos-lord",
+        "name": "World Eaters Chaos Lord",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "KHORNE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Berzerker Chieftain: the led unit gains +1 Attack when charging, and generates D3 Blood Tithe points whenever a charge is made.",
+        "relevantPhases": ["command", "shooting", "charge", "fight"]
+      }
+    ],
+    "aeldari": [
+      {
+        "unitId": "ael-guardian-defenders",
+        "name": "Guardian Defenders",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "HEAVY"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Shuriken Catapults: on any Wound roll of 6, the attack gains AP -3 due to the Bladestorm ability.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ael-farseer",
+        "name": "Farseer",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "PSYKER"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Guide and Doom: the Farseer can use two psychic actions per phase — one to re-roll Hits for a friendly unit, one to re-roll Wounds against an enemy unit.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "ael-dire-avengers",
+        "name": "Dire Avengers",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "ASPECT WARRIOR", "RAPID FIRE"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Shuriken Volley: this unit can shoot twice in the Shooting Phase if it did not move this turn.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ael-howling-banshees",
+        "name": "Howling Banshees",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "ASPECT WARRIOR", "FIGHTS FIRST"],
+        "movement": 8,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Banshee Mask: enemy units within Engagement Range cannot fire Overwatch; this unit always Fights First.",
+        "relevantPhases": ["fight"]
+      },
+      {
+        "unitId": "ael-wraithguard",
+        "name": "Wraithguard",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "CONSTRUCT", "HEAVY"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "D-scythes: Torrent weapon that can only be used at close range; wounds that cause mortal wounds in addition to normal damage.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "ael-wave-serpent",
+        "name": "Wave Serpent",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TRANSPORT", "FLY", "RAPID FIRE"],
+        "movement": 16,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Serpent Shield: once per battle, overcharge the shield to get an additional 5+ invulnerable save against shooting attacks.",
+        "relevantPhases": ["movement", "shooting"]
+      },
+      {
+        "unitId": "ael-avatar-of-khaine",
+        "name": "Avatar of Khaine",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "DAEMON"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Wailing Doom: ranged and melee attacks from this model gain Devastating Wounds; friendly Aeldari units within 9\" are immune to Battle-shock.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "ael-fire-dragons",
+        "name": "Fire Dragons",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "ASPECT WARRIOR", "TORRENT"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Tank Hunters: re-roll Wound rolls against Vehicles and Monsters; Melta weapons have +2 Damage at half range.",
+        "relevantPhases": ["shooting", "fight"]
+      }
+    ],
+    "drukhari": [
+      {
+        "unitId": "dru-kabalite-warriors",
+        "name": "Kabalite Warriors",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE", "PISTOL"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Power from Pain: this unit gains cumulative bonuses each battle round — starting from round 2, they gain +1 to their saving throws.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "dru-archon",
+        "name": "Archon",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "PISTOL"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Overlord: once per Fight phase, if the Archon's unit kills an enemy unit, it may immediately Consolidate D6\" rather than 3\".",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "dru-incubi",
+        "name": "Incubi",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "FIGHTS FIRST", "LETHAL HITS"],
+        "movement": 7,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Lethal Precision: this unit's melee attacks gain Lethal Hits; always Fights First in the Fight Phase.",
+        "relevantPhases": ["fight"]
+      },
+      {
+        "unitId": "dru-wyches",
+        "name": "Wyches",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "PISTOL"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Combat Drugs: at the start of the battle, choose a drug for this unit granting +1 Strength, +1 Toughness, +1 Initiative, or re-roll Charges.",
+        "relevantPhases": ["shooting", "charge", "fight"]
+      },
+      {
+        "unitId": "dru-mandrakes",
+        "name": "Mandrakes",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "DEEP STRIKE", "ASSAULT"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Baleblast: ranged attacks from this unit deal mortal wounds on unmodified wound rolls of 4+.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "dru-ravager",
+        "name": "Ravager",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "FLY", "HEAVY"],
+        "movement": 14,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Night Shields: this model's saving throw against ranged attacks is improved by 1 (e.g. 5+ becomes 4+).",
+        "relevantPhases": ["movement", "shooting"]
+      },
+      {
+        "unitId": "dru-raider",
+        "name": "Raider",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TRANSPORT", "FLY"],
+        "movement": 14,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Open-topped: units embarked on this transport can fire their own weapons as if they were not embarked.",
+        "relevantPhases": ["movement", "shooting"]
+      }
+    ],
+    "genestealer-cults": [
+      {
+        "unitId": "gc-neophyte-hybrids",
+        "name": "Neophyte Hybrids",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE", "HEAVY"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Cult Ambush: at the start of the game, this unit can be set up in ambush markers anywhere on the battlefield and is revealed at the start of a later turn.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "gc-acolyte-hybrids",
+        "name": "Acolyte Hybrids",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "DEEP STRIKE", "PISTOL"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Return to the Shadows: once per battle, this unit can be removed from the battlefield at the end of a phase and redeployed via Cult Ambush in a subsequent turn.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "gc-aberrants",
+        "name": "Aberrants",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE"],
+        "movement": 6,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Hyper-ferocity: this unit may re-roll Charge rolls; on a successful charge, each model in the unit makes D3 additional melee attacks.",
+        "relevantPhases": ["charge", "fight"]
+      },
+      {
+        "unitId": "gc-patriarch",
+        "name": "Patriarch",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "LEADER", "PSYKER"],
+        "movement": 8,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Genestealer Familiar: can perform a psychic action to grant a friendly unit within 6\" an Advance and then Charge action in the same turn.",
+        "relevantPhases": ["command", "charge", "fight"]
+      },
+      {
+        "unitId": "gc-magus",
+        "name": "Magus",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER", "PSYKER"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Psychic Backlash: once per Psychic Phase, when an enemy Psyker fails an action near this model, deal D3 mortal wounds to that unit.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "gc-goliath-truck",
+        "name": "Goliath Truck",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TRANSPORT"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Industrial Camouflage: this vehicle gains the benefit of Light Cover unless it Advanced or charged this turn.",
+        "relevantPhases": ["movement", "shooting", "charge"]
+      },
+      {
+        "unitId": "gc-leman-russ-cults",
+        "name": "Cults Leman Russ",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "HEAVY", "BLAST"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Grinding Advance: does not suffer the penalty for moving and shooting Heavy weapons; can choose to fire its main weapon twice if it Remains Stationary.",
+        "relevantPhases": ["shooting"]
+      }
+    ],
+    "leagues-of-votann": [
+      {
+        "unitId": "lov-hearthkyn-warriors",
+        "name": "Hearthkyn Warriors",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE", "ASSAULT"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Oaths of Kinship: choose an enemy unit at the start of the battle; all friendly Kin units re-roll Wound rolls of 1 against that unit for the entire game.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "lov-kahl",
+        "name": "Kahl",
+        "battlefieldRole": "Character",
+        "keywords": ["INFANTRY", "CHARACTER", "LEADER"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Warlord: once per Command Phase, the Kahl can issue an Order granting the led unit re-rolls to hit and wound against the unit designated by Oaths of Kinship.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "lov-einhyr-hearthguard",
+        "name": "Einhyr Hearthguard",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "HEAVY", "DEEP STRIKE"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Exo-armour Hearthguard: 2+ armour save and a 4+ invulnerable save; their melee weapons have Devastating Wounds.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "lov-cthonian-berserks",
+        "name": "Cthonian Berserks",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "PISTOL", "LETHAL HITS"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Berserk Fury: melee attacks by this unit gain Lethal Hits when charging; this unit re-rolls Charge rolls.",
+        "relevantPhases": ["shooting", "charge", "fight"]
+      },
+      {
+        "unitId": "lov-sagitaur",
+        "name": "Sagitaur",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TRANSPORT", "RAPID FIRE"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Grudge-maker Cannon: ranged attacks from this vehicle gain +1 to Wound rolls against the unit designated by Oaths of Kinship.",
+        "relevantPhases": ["movement", "shooting"]
+      },
+      {
+        "unitId": "lov-hekaton-land-fortress",
+        "name": "Hekaton Land Fortress",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "TRANSPORT", "HEAVY", "BLAST"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Ancestral Recall: once per battle, when this model would be destroyed, on a 4+ it instead retains 1 wound and continues fighting.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "lov-void-armor-brethren",
+        "name": "Void Armour Brethren",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "HEAVY"],
+        "movement": 5,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Gravitic Repulsion: this unit ignores the penalty for moving and firing Heavy weapons, and has a 5+ invulnerable save.",
+        "relevantPhases": ["shooting", "fight"]
+      }
+    ],
+    "t-au-empire": [
+      {
+        "unitId": "tau-fire-warriors",
+        "name": "Fire Warriors Strike Team",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "For the Greater Good: this unit may fire its weapons at an enemy that charged a friendly unit within 6\", even if it is not the closest target.",
+        "relevantPhases": ["shooting", "charge"]
+      },
+      {
+        "unitId": "tau-fire-warriors-breacher",
+        "name": "Fire Warriors Breacher Team",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "ASSAULT"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Pulse Blasters: Assault weapons that gain +1 Strength and AP at under half-range, devastating at point-blank.",
+        "relevantPhases": ["shooting"]
+      },
+      {
+        "unitId": "tau-commander",
+        "name": "Commander in Coldstar Battlesuit",
+        "battlefieldRole": "Character",
+        "keywords": ["VEHICLE", "CHARACTER", "LEADER", "FLY"],
+        "movement": 20,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "For the Greater Good: this model can use its marker lights to improve Hit rolls for other T'au units targeting the same enemy.",
+        "relevantPhases": ["command", "movement", "shooting"]
+      },
+      {
+        "unitId": "tau-crisis-battlesuits",
+        "name": "Crisis Battlesuits",
+        "battlefieldRole": "Infantry",
+        "keywords": ["VEHICLE", "CORE", "FLY", "DEEP STRIKE"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Multi-tracker: this unit can shoot its weapons at two different enemy units in the same Shooting Phase.",
+        "relevantPhases": ["movement", "shooting"]
+      },
+      {
+        "unitId": "tau-stealth-battlesuits",
+        "name": "Stealth Battlesuits",
+        "battlefieldRole": "Infantry",
+        "keywords": ["VEHICLE", "CORE", "FLY", "DEEP STRIKE"],
+        "movement": 8,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Camo Field: this unit always counts as being in cover; enemies subtract 1 from Hit rolls when targeting it.",
+        "relevantPhases": ["movement", "shooting"]
+      },
+      {
+        "unitId": "tau-riptide",
+        "name": "Riptide",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "FLY", "HEAVY", "BLAST"],
+        "movement": 10,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Nova Reactor: once per battle, boost the Riptide's weapons profile for one Shooting Phase, increasing its shots or Damage.",
+        "relevantPhases": ["movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "tau-kroot-carnivores",
+        "name": "Kroot Carnivores",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "KROOT", "ASSAULT"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Jungle Fighters: this unit counts as being in cover in any terrain feature; re-rolls Wound rolls in melee against Infantry.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "tau-hammerhead",
+        "name": "Hammerhead Gunship",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["VEHICLE", "HEAVY", "BLAST"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": false,
+        "briefAbility": "Railgun: incredibly high-powered main weapon that wounds on 2+ and deals D6+6 damage; on an unmodified Wound roll of 6, double the damage.",
+        "relevantPhases": ["shooting"]
+      }
+    ],
+    "tyranids": [
+      {
+        "unitId": "tyr-termagants",
+        "name": "Termagants",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE", "RAPID FIRE"],
+        "movement": 6,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Skulking Horrors: if this unit is entirely within 6\" of a friendly Tervigon at the start of the Morale phase, it automatically passes Battleshock tests.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "tyr-hormagaunts",
+        "name": "Hormagaunts",
+        "battlefieldRole": "Battleline",
+        "keywords": ["INFANTRY", "CORE", "BATTLELINE"],
+        "movement": 8,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Bounding Leap: this unit can re-roll Advance rolls and Charge rolls; after destroying an enemy unit in melee, make a free 6\" Normal Move.",
+        "relevantPhases": ["charge", "fight"]
+      },
+      {
+        "unitId": "tyr-hive-tyrant",
+        "name": "Hive Tyrant",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "FLY", "LEADER", "PSYKER"],
+        "movement": 12,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Synaptic Nexus: friendly Tyranid units within 12\" re-roll Morale tests; Psyker power can be used to deal D3 mortal wounds to a visible enemy unit.",
+        "relevantPhases": ["command", "movement", "shooting", "fight"]
+      },
+      {
+        "unitId": "tyr-warriors",
+        "name": "Tyranid Warriors",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "SYNAPSE", "RAPID FIRE"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Synapse Creature: friendly Tyranid units within 6\" of this unit are not required to take Battleshock tests.",
+        "relevantPhases": ["shooting", "fight"]
+      },
+      {
+        "unitId": "tyr-genestealers",
+        "name": "Genestealers",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "DEEP STRIKE", "FIGHTS FIRST"],
+        "movement": 8,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Lightning Reflexes: this unit has a 5+ invulnerable save; always Fights First in the Fight Phase.",
+        "relevantPhases": ["movement", "fight"]
+      },
+      {
+        "unitId": "tyr-carnifex",
+        "name": "Carnifex",
+        "battlefieldRole": "Vehicle",
+        "keywords": ["MONSTER", "HEAVY"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Living Battering Ram: this model re-rolls Charge rolls; when it charges, enemy units within Engagement Range suffer D3 mortal wounds.",
+        "relevantPhases": ["shooting", "charge", "fight"]
+      },
+      {
+        "unitId": "tyr-tervigon",
+        "name": "Tervigon",
+        "battlefieldRole": "Character",
+        "keywords": ["MONSTER", "CHARACTER", "SYNAPSE"],
+        "movement": 7,
+        "hasRanged": true,
+        "hasMelee": true,
+        "briefAbility": "Brood Progenitor: once per Command Phase, spawn D6+3 Termagants to join a nearby friendly unit or form a new unit.",
+        "relevantPhases": ["command", "shooting", "fight"]
+      },
+      {
+        "unitId": "tyr-neurogaunts",
+        "name": "Neurogaunts",
+        "battlefieldRole": "Infantry",
+        "keywords": ["INFANTRY", "CORE", "SYNAPSE"],
+        "movement": 6,
+        "hasRanged": false,
+        "hasMelee": true,
+        "briefAbility": "Synaptic Relays: while within 6\" of another Synapse unit, this unit re-rolls all failed Wound rolls in melee and cannot be Battle-shocked.",
+        "relevantPhases": ["fight"]
       }
     ]
   }

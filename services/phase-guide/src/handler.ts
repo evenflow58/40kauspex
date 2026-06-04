@@ -12,6 +12,7 @@ interface ArmyUnit {
   unitName: string
   keywords: string[]
   briefAbility: string | null
+  relevantPhases: string[]
 }
 
 /** A phase reference item. */
@@ -61,23 +62,13 @@ export const handler = async (
     ])
 
     const phasesWithGuidance = phases.map((phase) => {
-      const phaseKeywords = new Set(
-        phase.relevantKeywords.map((k) => k.toUpperCase())
-      )
+      const phaseSlug = phase.name.split(' ')[0].toLowerCase()
       const matchedUnits = units
-        .map((unit) => {
-          const matchedKeywords = unit.keywords.filter((k) =>
-            phaseKeywords.has(k.toUpperCase())
-          )
-          return { unit, matchedKeywords }
-        })
-        // A unit appears in a phase only when it has at least one relevant
-        // keyword for that phase.
-        .filter(({ matchedKeywords }) => matchedKeywords.length > 0)
-        .map(({ unit, matchedKeywords }) => ({
+        .filter((unit) => unit.relevantPhases.includes(phaseSlug))
+        .map((unit) => ({
           entryId: unit.entryId,
           unitName: unit.unitName,
-          matchedKeywords,
+          matchedKeywords: [],
           briefAbility: unit.briefAbility,
         }))
 
@@ -121,6 +112,7 @@ async function getArmyUnits(armyId: string): Promise<ArmyUnit[]> {
     unitName: item.unitName as string,
     keywords: (item.keywords as string[]) ?? [],
     briefAbility: (item.briefAbility as string | undefined) ?? null,
+    relevantPhases: (item.relevantPhases as string[]) ?? [],
   }))
 }
 
