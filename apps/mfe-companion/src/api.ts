@@ -95,6 +95,7 @@ export interface UnitPayload {
   hasMelee: boolean
   briefAbility: string | null
   battlefieldRole: string
+  relevantPhases: string[]
 }
 
 /** Map a catalogue `Unit` to the army-unit payload the API expects. */
@@ -108,6 +109,7 @@ export function unitToPayload(unit: Unit): UnitPayload {
     hasMelee: unit.hasMelee,
     briefAbility: unit.briefAbility,
     battlefieldRole: unit.battlefieldRole,
+    relevantPhases: unit.relevantPhases,
   }
 }
 
@@ -122,6 +124,7 @@ export function armyUnitToPayload(unit: ArmyUnit): UnitPayload {
     hasMelee: unit.hasMelee,
     briefAbility: unit.briefAbility,
     battlefieldRole: unit.battlefieldRole,
+    relevantPhases: unit.relevantPhases,
   }
 }
 
